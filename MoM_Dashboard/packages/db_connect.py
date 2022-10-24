@@ -5,6 +5,48 @@ from io import StringIO
 from pathlib import Path
 
 
+def get_playoffs():
+    playoffs_query = """
+SELECT "Week", 
+"Bracket", 
+"Manager", 
+"Finish", 
+"Playoff Seed", 
+"Wk W/L", 
+"Wk Pts", 
+"Wk Pro. Pts", 
+"Opp Manager", 
+"Opp Wk Pts", 
+"Opp Wk Pro. Pts" 
+FROM prod.playoff_board
+ORDER BY "Week", 
+"Finish"
+"""
+    playoffs_df = DatabaseCursor().copy_from_psql(playoffs_query)
+    return playoffs_df
+
+
+def get_reg_season():
+    weekly_rankings_query = """
+SELECT "Week", 
+"Manager", 
+"Cur. Wk Rk", 
+"Prev. Wk Rk", 
+"2pt Ttl", 
+"2pt Ttl Rk", 
+"Ttl Pts Win", 
+"Win Ttl",
+"Loss Ttl", 
+"Ttl Pts", 
+"Ttl Pts Rk" 
+FROM prod.reg_season_results
+ORDER BY "Week", 
+"Cur. Wk Rk"
+"""
+    weekly_rankings_df = DatabaseCursor().copy_from_psql(weekly_rankings_query)
+    return weekly_rankings_df
+
+
 class DatabaseCursor(object):
     def __init__(self):
         """
@@ -13,7 +55,9 @@ class DatabaseCursor(object):
         credential_file = path to private yaml file
         kwargs = {option_schema: "raw"}
         """
-        credential_file = list(Path().cwd().glob("**/private.yaml"))[0]
+        credential_file = Path(
+            "/home/cuddebtj/Documents/Python/MoM-WeeklyRankings-Dashboard/MoM_Dashboard/assets/private.yaml"
+        )
 
         with open(credential_file) as file:
             self.credentials = yaml.load(file, Loader=yaml.SafeLoader)
@@ -60,7 +104,6 @@ class DatabaseCursor(object):
         buffer = StringIO()
         df.to_csv(buffer, index=False)
         buffer.seek(0)
-
 
         cursor = self.__enter__()
         copy_to = f"BEGIN; \
