@@ -9,7 +9,14 @@ from app import app
 # it consists of a title, and a toggle, the latter is hidden on large screens
 sidebar_header = dbc.Row(
     [
-        dbc.Col(html.H2("Picture", className="display-4")),
+        dbc.Col(
+            html.Img(
+                src=app.get_asset_url("JMU-Logo.png"),
+                alt="JMU-Logo",
+                style={"width": "100%"},
+                className="display-4",
+            )
+        ),
         dbc.Col(
             [
                 html.Button(
@@ -18,8 +25,8 @@ sidebar_header = dbc.Row(
                     className="navbar-toggler",
                     # the navbar-toggler classes don't set color
                     style={
-                        "color": "rgba(0,0,0,.5)",
-                        "border-color": "rgba(0,0,0,.1)",
+                        "color": "rgba(203, 182, 119, 0.5)",
+                        "border-color": "rgba(69, 0, 132, 0.1)",
                     },
                     id="navbar-toggle",
                 ),
@@ -29,8 +36,8 @@ sidebar_header = dbc.Row(
                     className="navbar-toggler",
                     # the navbar-toggler classes don't set color
                     style={
-                        "color": "rgba(0,0,0,.5)",
-                        "border-color": "rgba(0,0,0,.1)",
+                        "color": "rgba(203, 182, 119, 0.5)",
+                        "border-color": "rgba(9, 0, 132, 0.1)",
                     },
                     id="sidebar-toggle",
                 ),
@@ -55,6 +62,7 @@ sidebar = html.Div(
                 html.P(
                     "Men of Madison Fantasy Football League",
                     className="lead",
+                    style={"color": "#450084"},
                 ),
             ],
             id="blurb",
@@ -70,6 +78,16 @@ sidebar = html.Div(
                     dbc.NavLink("Managers", href="/managers", active="exact"),
                     dbc.NavLink("Seasons", href="/seasons", active="exact"),
                     dbc.NavLink("Records", href="/records", active="exact"),
+                    dbc.NavLink(
+                        "Yahoo League",
+                        href="https://football.fantasysports.yahoo.com/f1/77446",
+                        active="exact",
+                    ),
+                    dbc.NavLink(
+                        "Slack Channel",
+                        href="https://app.slack.com/client/TLC9R6Q7Q",
+                        active="exact",
+                    ),
                 ],
                 vertical=True,
                 pills=True,
