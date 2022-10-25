@@ -59,9 +59,9 @@ sidebar = html.Div(
         html.Div(
             [
                 html.Hr(),
-                html.P(
+                html.H4(
                     "Men of Madison Fantasy Football League",
-                    className="lead",
+                    className="font-weight-bold",
                     style={"color": "#450084"},
                 ),
             ],
@@ -71,22 +71,24 @@ sidebar = html.Div(
         dbc.Collapse(
             dbc.Nav(
                 [
-                    dbc.NavLink("Home", href="/", active="exact"),
-                    dbc.NavLink("Bylaws", href="/bylaws", active="exact"),
-                    dbc.NavLink("Matchups", href="/matchups", active="exact"),
-                    dbc.NavLink("Drafts", href="/drafts", active="exact"),
-                    dbc.NavLink("Managers", href="/managers", active="exact"),
-                    dbc.NavLink("Seasons", href="/seasons", active="exact"),
-                    dbc.NavLink("Records", href="/records", active="exact"),
+                    dbc.NavLink("Home", href="/", active="exact", style={"color": "#B599CE"}),
+                    dbc.NavLink("Bylaws", href="/bylaws", active="exact", style={"color": "#B599CE"}),
+                    dbc.NavLink("Matchups", href="/matchups", active="exact", style={"color": "#B599CE"}),
+                    dbc.NavLink("Drafts", href="/drafts", active="exact", style={"color": "#B599CE"}),
+                    dbc.NavLink("Managers", href="/managers", active="exact", style={"color": "#B599CE"}),
+                    dbc.NavLink("Seasons", href="/seasons", active="exact", style={"color": "#B599CE"}),
+                    dbc.NavLink("Records", href="/records", active="exact", style={"color": "#B599CE"}),
                     dbc.NavLink(
                         "Yahoo League",
                         href="https://football.fantasysports.yahoo.com/f1/77446",
                         active="exact",
+                        style={"color": "#CBB677"},
                     ),
                     dbc.NavLink(
                         "Slack Channel",
                         href="https://app.slack.com/client/TLC9R6Q7Q",
                         active="exact",
+                        style={"color": "#CBB677"},
                     ),
                 ],
                 vertical=True,

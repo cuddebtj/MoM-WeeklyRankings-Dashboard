@@ -10,6 +10,7 @@ def get_playoffs():
 SELECT "Week", 
 "Bracket", 
 "Manager", 
+"Team",
 "Finish", 
 "Playoff Seed", 
 "Wk W/L", 
@@ -30,6 +31,7 @@ def get_reg_season():
     weekly_rankings_query = """
 SELECT "Week", 
 "Manager", 
+"Team",
 "Cur. Wk Rk", 
 "Prev. Wk Rk", 
 "2pt Ttl", 

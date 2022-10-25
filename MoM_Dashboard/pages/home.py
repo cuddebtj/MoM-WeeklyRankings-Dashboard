@@ -9,7 +9,7 @@ max_week = reg_season["Week"].max()
 reg_season = reg_season[reg_season["Week"] == max_week]
 reg_season = reg_season[reg_season.columns[1:]]
 reg_season_table = dbc.Table.from_dataframe(
-    reg_season, striped=True, bordered=True, hover=True, responsive=True
+    reg_season, striped=True, bordered=True, hover=True, responsive=True, className="table-sm rounded m-2", 
 )
 
 playoffs = get_playoffs()
@@ -17,7 +17,7 @@ playoff_week = playoffs["Week"].max()
 playoffs = playoffs[playoffs["Week"] == playoff_week]
 playoffs = playoffs[playoffs.columns[1:]]
 playoff_table = dbc.Table.from_dataframe(
-    playoffs, striped=True, bordered=True, hover=True, responsive=True
+    playoffs, striped=True, bordered=True, hover=True, responsive=True, className="table-sm rounded m-2", 
 )
 
 layout = html.Div(
@@ -30,7 +30,7 @@ layout = html.Div(
                             html.H1(
                                 "Welcome to the Men of Madison Fantasy Football League!",
                                 className="text-center",
-                                style={"color": "#CBB677"},
+                                style={"color": "#B599CE"},
                             ),
                             className="mb-5",
                         )
@@ -47,7 +47,7 @@ layout = html.Div(
                                             html.H3(
                                                 children=f"Week {max_week} Rankings",
                                                 className="text-center",
-                                                style={"color": "#450084"},
+                                                style={"color": "#CBB677"},
                                             )
                                         ]
                                     ),
@@ -73,7 +73,7 @@ layout = html.Div(
                                             html.H3(
                                                 children=f"Week {playoff_week} Playoff Picture",
                                                 className="text-center",
-                                                style={"color": "#450084"},
+                                                style={"color": "#CBB677"},
                                             )
                                         ]
                                     ),
