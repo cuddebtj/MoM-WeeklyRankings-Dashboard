@@ -3,7 +3,7 @@ import dash_bootstrap_components as dbc
 from dash import Input, Output, State, dcc, html
 
 from pages import bylaws, drafts, home, managers, matchups, records, seasons
-from app import app
+from app import app, server
 
 # we use the Row and Col components to construct the sidebar header
 # it consists of a title, and a toggle, the latter is hidden on large screens
