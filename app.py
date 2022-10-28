@@ -3,7 +3,7 @@ from uuid import uuid4
 import dash
 import dash_bootstrap_components as dbc
 from dash import Input, Output, State, dcc, html
-from whitenoise import WhiteNoise
+
 
 from pages import home, bylaws, drafts, managers, matchups, records, seasons
 
@@ -16,7 +16,6 @@ app = dash.Dash(
 )
 
 server = app.server
-server.wsgi_app = WhiteNoise(server.wsgi_app, root="MoM_Dashboard/assets/")
 
 # we use the Row and Col components to construct the sidebar header
 # it consists of a title, and a toggle, the latter is hidden on large screens
@@ -24,7 +23,7 @@ sidebar_header = dbc.Row(
     [
         dbc.Col(
             html.Img(
-                src=app.get_asset_url("JMU-Logo.png"),
+                src="https://www.jmu.edu/identity/_files/jmu-logo-rgb-vert-purple.png",
                 alt="JMU-Logo",
                 style={"width": "100%"},
                 className="display-4",
