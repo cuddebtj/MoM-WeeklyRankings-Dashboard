@@ -1,9 +1,7 @@
-import os
-from uuid import uuid4
 import dash
 import dash_bootstrap_components as dbc
 from dash import Input, Output, State, dcc, html
-
+from whitenoise import WhiteNoise
 
 from pages import home, bylaws, drafts, managers, matchups, records, seasons
 
@@ -16,6 +14,8 @@ app = dash.Dash(
 )
 
 server = app.server
+
+server.wsgi_app = WhiteNoise(server.wsgi_app, root="static/")
 
 # we use the Row and Col components to construct the sidebar header
 # it consists of a title, and a toggle, the latter is hidden on large screens
@@ -247,4 +247,4 @@ def toggle_collapse(n, is_open):
 
 
 if __name__ == "__main__":
-    app.run_server(debug=False, host='0.0.0.0', port=8050)
+    app.run_server(debug=False, host="0.0.0.0", port=8050)

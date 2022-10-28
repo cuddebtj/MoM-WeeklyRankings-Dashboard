@@ -3,6 +3,7 @@ import yaml
 import pandas as pd
 from io import StringIO
 from pathlib import Path
+import os
 
 
 def get_playoffs():
@@ -57,14 +58,15 @@ class DatabaseCursor(object):
         credential_file = path to private yaml file
         kwargs = {option_schema: "raw"}
         """
-        credential_file = Path(
-            "assets/private.yaml"
-        )
+        # credential_file = Path(
+        #     "assets/private.yaml"
+        # )
 
-        with open(credential_file) as file:
-            self.credentials = yaml.load(file, Loader=yaml.SafeLoader)
+        # with open(credential_file) as file:
+        #     self.credentials = yaml.load(file, Loader=yaml.SafeLoader)
 
-        self.db_url = self.credentials["heroku_db_url"]
+        # self.db_url = self.credentials["heroku_db_url"]
+        self.db_url = os.environ("DATABASE_URL")
 
     def __enter__(self):
         """
