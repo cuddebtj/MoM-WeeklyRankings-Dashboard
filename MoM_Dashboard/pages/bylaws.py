@@ -79,8 +79,10 @@ layout = html.Div(
                                                             ),
                                                         ],
                                                         title="[Article 1.1] - Executive Committee",
-                                                        class_name="rounded", 
-                                                        style={"border-color": "#B599CE"},
+                                                        class_name="rounded",
+                                                        style={
+                                                            "border-color": "#B599CE"
+                                                        },
                                                     ),
                                                     dbc.AccordionItem(
                                                         [
@@ -116,8 +118,10 @@ layout = html.Div(
                                                             ),
                                                         ],
                                                         title="[Article 1.2] - Voting",
-                                                        class_name="rounded", 
-                                                        style={"border-color": "#B599CE"},
+                                                        class_name="rounded",
+                                                        style={
+                                                            "border-color": "#B599CE"
+                                                        },
                                                     ),
                                                     dbc.AccordionItem(
                                                         [
@@ -143,8 +147,10 @@ layout = html.Div(
                                                             ),
                                                         ],
                                                         title="[Article 1.3] - Dues",
-                                                        class_name="rounded", 
-                                                        style={"border-color": "#B599CE"},
+                                                        class_name="rounded",
+                                                        style={
+                                                            "border-color": "#B599CE"
+                                                        },
                                                     ),
                                                     dbc.AccordionItem(
                                                         [
@@ -173,8 +179,10 @@ layout = html.Div(
                                                             ),
                                                         ],
                                                         title="[Article 1.3.1] - Prize Money",
-                                                        class_name="rounded", 
-                                                        style={"border-color": "#B599CE"},
+                                                        class_name="rounded",
+                                                        style={
+                                                            "border-color": "#B599CE"
+                                                        },
                                                     ),
                                                 ],
                                                 start_collapsed=True,
@@ -182,8 +190,8 @@ layout = html.Div(
                                             ),
                                         ],
                                         title="[Article 1.0] - League Overview",
-                                        class_name="rounded", 
-                                        style={"border-color": "#CBB677"}
+                                        class_name="rounded",
+                                        style={"border-color": "#CBB677"},
                                     ),
                                 ],
                                 start_collapsed=True,
@@ -242,8 +250,10 @@ layout = html.Div(
                                                             ),
                                                         ],
                                                         title="[Article 2.1] - Draft",
-                                                        class_name="rounded", 
-                                                        style={"border-color": "#B599CE"},
+                                                        class_name="rounded",
+                                                        style={
+                                                            "border-color": "#B599CE"
+                                                        },
                                                     ),
                                                     dbc.AccordionItem(
                                                         [
@@ -295,8 +305,10 @@ layout = html.Div(
                                                             ),
                                                         ],
                                                         title="[Article 2.2] - Playoffs",
-                                                        class_name="rounded", 
-                                                        style={"border-color": "#B599CE"},
+                                                        class_name="rounded",
+                                                        style={
+                                                            "border-color": "#B599CE"
+                                                        },
                                                     ),
                                                     dbc.AccordionItem(
                                                         [
@@ -313,8 +325,10 @@ layout = html.Div(
                                                             ),
                                                         ],
                                                         title="[Article 2.3] - Winner",
-                                                        class_name="rounded", 
-                                                        style={"border-color": "#B599CE"},
+                                                        class_name="rounded",
+                                                        style={
+                                                            "border-color": "#B599CE"
+                                                        },
                                                     ),
                                                     dbc.AccordionItem(
                                                         [
@@ -340,8 +354,10 @@ layout = html.Div(
                                                             ),
                                                         ],
                                                         title="[Article 2.4] - Loser",
-                                                        class_name="rounded", 
-                                                        style={"border-color": "#B599CE"},
+                                                        class_name="rounded",
+                                                        style={
+                                                            "border-color": "#B599CE"
+                                                        },
                                                     ),
                                                 ],
                                                 start_collapsed=True,
@@ -349,7 +365,7 @@ layout = html.Div(
                                             ),
                                         ],
                                         title="[Article 2.0] - League Setup",
-                                        class_name="rounded", 
+                                        class_name="rounded",
                                         style={"border-color": "#CBB677"},
                                     ),
                                 ],
@@ -415,8 +431,10 @@ layout = html.Div(
                                                             ),
                                                         ],
                                                         title="[Article 3.1] - Roster Spots",
-                                                        class_name="rounded", 
-                                                        style={"border-color": "#B599CE"},
+                                                        class_name="rounded",
+                                                        style={
+                                                            "border-color": "#B599CE"
+                                                        },
                                                     ),
                                                     dbc.AccordionItem(
                                                         [
@@ -434,8 +452,10 @@ layout = html.Div(
                                                             ),
                                                         ],
                                                         title="[Article 3.2] - Free Agency",
-                                                        class_name="rounded", 
-                                                        style={"border-color": "#B599CE"},
+                                                        class_name="rounded",
+                                                        style={
+                                                            "border-color": "#B599CE"
+                                                        },
                                                     ),
                                                     dbc.AccordionItem(
                                                         [
@@ -477,8 +497,10 @@ layout = html.Div(
                                                             ),
                                                         ],
                                                         title="[Article 3.3] - Waiver Wire",
-                                                        class_name="rounded", 
-                                                        style={"border-color": "#B599CE"},
+                                                        class_name="rounded",
+                                                        style={
+                                                            "border-color": "#B599CE"
+                                                        },
                                                     ),
                                                     dbc.AccordionItem(
                                                         [
@@ -498,8 +520,10 @@ layout = html.Div(
                                                             ),
                                                         ],
                                                         title="[Article 3.4] - Playoff Waiver Wire Rule",
-                                                        class_name="rounded", 
-                                                        style={"border-color": "#B599CE"},
+                                                        class_name="rounded",
+                                                        style={
+                                                            "border-color": "#B599CE"
+                                                        },
                                                     ),
                                                     dbc.AccordionItem(
                                                         [
@@ -516,8 +540,10 @@ layout = html.Div(
                                                             ),
                                                         ],
                                                         title="[Article 3.5] - Can't Cut List",
-                                                        class_name="rounded", 
-                                                        style={"border-color": "#B599CE"},
+                                                        class_name="rounded",
+                                                        style={
+                                                            "border-color": "#B599CE"
+                                                        },
                                                     ),
                                                     dbc.AccordionItem(
                                                         [
@@ -536,8 +562,10 @@ layout = html.Div(
                                                             ),
                                                         ],
                                                         title="[Article 3.6] - Trades",
-                                                        class_name="rounded", 
-                                                        style={"border-color": "#B599CE"},
+                                                        class_name="rounded",
+                                                        style={
+                                                            "border-color": "#B599CE"
+                                                        },
                                                     ),
                                                     dbc.AccordionItem(
                                                         [
@@ -556,8 +584,10 @@ layout = html.Div(
                                                             ),
                                                         ],
                                                         title="[Article 3.7] - Starting Line-ups",
-                                                        class_name="rounded", 
-                                                        style={"border-color": "#B599CE"},
+                                                        class_name="rounded",
+                                                        style={
+                                                            "border-color": "#B599CE"
+                                                        },
                                                     ),
                                                     dbc.AccordionItem(
                                                         [
@@ -577,8 +607,10 @@ layout = html.Div(
                                                             ),
                                                         ],
                                                         title="[Article 3.8] - Active Ownership",
-                                                        class_name="rounded", 
-                                                        style={"border-color": "#B599CE"},
+                                                        class_name="rounded",
+                                                        style={
+                                                            "border-color": "#B599CE"
+                                                        },
                                                     ),
                                                 ],
                                                 start_collapsed=True,
@@ -586,7 +618,7 @@ layout = html.Div(
                                             ),
                                         ],
                                         title="[Article 3.0] - Rosters and Lineup",
-                                        class_name="rounded", 
+                                        class_name="rounded",
                                         style={"border-color": "#CBB677"},
                                     ),
                                 ],
@@ -814,8 +846,10 @@ layout = html.Div(
                                                             ),
                                                         ],
                                                         title="[Article 4.1] - 2-Point League Scoring",
-                                                        class_name="rounded", 
-                                                        style={"border-color": "#B599CE"},
+                                                        class_name="rounded",
+                                                        style={
+                                                            "border-color": "#B599CE"
+                                                        },
                                                     ),
                                                 ],
                                                 start_collapsed=True,
@@ -823,7 +857,7 @@ layout = html.Div(
                                             ),
                                         ],
                                         title="[Article 4.0] - Scoring",
-                                        class_name="rounded", 
+                                        class_name="rounded",
                                         style={"border-color": "#CBB677"},
                                     ),
                                 ],

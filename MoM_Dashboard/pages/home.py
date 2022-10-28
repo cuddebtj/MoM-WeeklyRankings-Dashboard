@@ -1,24 +1,24 @@
 import dash
-from dash import html
+from dash import html, Input, Output, dcc
 import dash_bootstrap_components as dbc
 
 from packages.db_connect import get_reg_season, get_playoffs
 
-reg_season = get_reg_season()
-max_week = reg_season["Week"].max()
-reg_season = reg_season[reg_season["Week"] == max_week]
-reg_season = reg_season[reg_season.columns[1:]]
-reg_season_table = dbc.Table.from_dataframe(
-    reg_season, striped=True, bordered=True, hover=True, responsive=True, className="table-sm rounded m-2", 
-)
+# reg_season = get_reg_season()
+# max_week = reg_season["Week"].max()
+# reg_season = reg_season[reg_season["Week"] == max_week]
+# reg_season = reg_season[reg_season.columns[1:]]
+# reg_season_table = dbc.Table.from_dataframe(
+#     reg_season, striped=True, bordered=True, hover=True, responsive=True, className="table-sm rounded m-2"
+# )
 
 playoffs = get_playoffs()
 playoff_week = playoffs["Week"].max()
-playoffs = playoffs[playoffs["Week"] == playoff_week]
-playoffs = playoffs[playoffs.columns[1:]]
-playoff_table = dbc.Table.from_dataframe(
-    playoffs, striped=True, bordered=True, hover=True, responsive=True, className="table-sm rounded m-2", 
-)
+# playoffs = playoffs[playoffs["Week"] == playoff_week]
+# playoffs = playoffs[playoffs.columns[1:]]
+# playoff_table = dbc.Table.from_dataframe(
+#     playoffs, striped=True, bordered=True, hover=True, responsive=True, className="table-sm rounded m-2"
+# )
 
 layout = html.Div(
     [
@@ -45,13 +45,13 @@ layout = html.Div(
                                     dbc.CardHeader(
                                         children=[
                                             html.H3(
-                                                children=f"Week {max_week} Rankings",
+                                                children=f"Week {playoff_week} Rankings",
                                                 className="text-center",
                                                 style={"color": "#CBB677"},
                                             )
                                         ]
                                     ),
-                                    reg_season_table,
+                                    html.Div(id="reg-season-table"),
                                 ],
                                 color="dark",
                                 outline=True,
@@ -77,7 +77,7 @@ layout = html.Div(
                                             )
                                         ]
                                     ),
-                                    playoff_table,
+                                    html.Div(id="playoff-table"),
                                 ],
                                 color="dark",
                                 outline=True,
@@ -90,6 +90,49 @@ layout = html.Div(
                     className="mb-5",
                 ),
             ]
-        )
+        ),
+        dcc.Interval(
+            id="interval-component",
+            interval=900 * 1000,  # in milliseconds
+            n_intervals=0,
+        ),
     ]
 )
+
+
+@dash.callback(
+    Output("reg-season-table", "children"), Input("interval-component", "n_intervals")
+)
+def reg_season_table_update(n):
+    reg_season = get_reg_season()
+    reg_season = reg_season[reg_season["Week"] == reg_season["Week"].max()]
+    reg_season = reg_season[reg_season.columns[1:]]
+    reg_season_table = dbc.Table.from_dataframe(
+        reg_season,
+        striped=True,
+        bordered=True,
+        hover=True,
+        responsive=True,
+        className="table-sm rounded m-2",
+    )
+
+    return reg_season_table
+
+
+@dash.callback(
+    Output("playoff-table", "children"), Input("interval-component", "n_intervals")
+)
+def playoff_table_update(n):
+    playoffs = get_playoffs()
+    playoffs = playoffs[playoffs["Week"] == playoffs["Week"].max()]
+    playoffs = playoffs[playoffs.columns[1:]]
+    playoff_table = dbc.Table.from_dataframe(
+        playoffs,
+        striped=True,
+        bordered=True,
+        hover=True,
+        responsive=True,
+        className="table-sm rounded m-2",
+    )
+
+    return playoff_table
