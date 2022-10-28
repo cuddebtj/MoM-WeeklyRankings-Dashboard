@@ -58,7 +58,7 @@ class DatabaseCursor(object):
         kwargs = {option_schema: "raw"}
         """
         credential_file = Path(
-            "/home/cuddebtj/Documents/Python/MoM-WeeklyRankings-Dashboard/MoM_Dashboard/assets/private.yaml"
+            "assets/private.yaml"
         )
 
         with open(credential_file) as file:

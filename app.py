@@ -3,8 +3,9 @@ from uuid import uuid4
 import dash
 import dash_bootstrap_components as dbc
 from dash import Input, Output, State, dcc, html
-from pages import home, bylaws, drafts, managers, matchups, records, seasons
 from whitenoise import WhiteNoise
+
+from pages import home, bylaws, drafts, managers, matchups, records, seasons
 
 app = dash.Dash(
     __name__,
