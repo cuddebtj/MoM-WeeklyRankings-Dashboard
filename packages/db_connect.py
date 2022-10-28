@@ -66,7 +66,7 @@ class DatabaseCursor(object):
         #     self.credentials = yaml.load(file, Loader=yaml.SafeLoader)
 
         # self.db_url = self.credentials["heroku_db_url"]
-        self.db_url = os.environ("DATABASE_URL")
+        self.db_url = os.environ["DATABASE_URL"]
 
     def __enter__(self):
         """
