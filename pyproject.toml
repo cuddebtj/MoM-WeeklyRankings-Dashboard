@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "mom-weeklyrankings-dashboard"
+version = "0.1.0"
+description = "Dashboard for MoM FFBL to display weekly rankings"
+authors = ["Tim Cuddeback <cuddebtj@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "mom_weeklyrankings_dashboard"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pandas = "^1.5.0"
+dash = {extras = ["diskcache"], version = "^2.6.2"}
+psycopg2-binary = "^2.9.3"
+PyYAML = "^6.0"
+dash-bootstrap-components = "^1.2.1"
+plotly = "^5.10.0"
+black = "^22.10.0"
+gunicorn = "^20.1.0"
+diskcache = "^5.4.0"
+whitenoise = "^6.2.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
