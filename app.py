@@ -11,6 +11,8 @@ app = dash.Dash(
     suppress_callback_exceptions=True,
     external_stylesheets=[dbc.themes.SLATE],
     meta_tags=[{"name": "viewport", "content": "width=device-width, initial-scale=1"}],
+    title="MoM-FFbl",
+    # assets_folder="static/"
 )
 
 server = app.server

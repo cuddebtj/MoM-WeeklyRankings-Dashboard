@@ -58,15 +58,15 @@ class DatabaseCursor(object):
         credential_file = path to private yaml file
         kwargs = {option_schema: "raw"}
         """
-        credential_file = Path(
-            "static/private.yaml"
-        )
+        # credential_file = Path(
+        #     "static/private.yaml"
+        # )
 
-        with open(credential_file) as file:
-            self.credentials = yaml.load(file, Loader=yaml.SafeLoader)
+        # with open(credential_file) as file:
+        #     self.credentials = yaml.load(file, Loader=yaml.SafeLoader)
 
-        self.db_url = self.credentials["heroku_db_url"]
-        # self.db_url = os.environ["DATABASE_URL"]
+        # self.db_url = self.credentials["heroku_db_url"]
+        self.db_url = os.environ["DATABASE_URL"]
 
     def __enter__(self):
         """
