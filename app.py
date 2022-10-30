@@ -160,16 +160,17 @@ def render_page_content(pathname):
         # return html.P("Bylaws")
         return bylaws.layout
     elif pathname == "/matchups":
-        return html.Div(
-            [
-                html.H1("Matchups build in progress. ", className="text-danger"),
-                html.Hr(),
-                html.P(
-                    "Patience is not the ability to wait, but the ability to wait with a good attitude."
-                ),
-            ],
-            className="p-3 bg-light rounded-3",
-        )
+        # return html.Div(
+        #     [
+        #         html.H1("Matchups build in progress. ", className="text-danger"),
+        #         html.Hr(),
+        #         html.P(
+        #             "Patience is not the ability to wait, but the ability to wait with a good attitude."
+        #         ),
+        #     ],
+        #     className="p-3 bg-light rounded-3",
+        # )
+        return matchups.layout
 
     elif pathname == "/drafts":
         return html.Div(
