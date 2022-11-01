@@ -46,91 +46,140 @@ layout = html.Div(
                                         [
                                             dbc.Row(
                                                 [
-                                                    dbc.Col(
+                                                    html.Div(
                                                         dbc.Card(
                                                             [
                                                                 dbc.CardBody(
                                                                     dbc.Row(
                                                                         [
-                                                                            dbc.Col(
+                                                                            html.Div(
                                                                                 [
-                                                                                    html.H6(
-                                                                                        "Fantasy Sidelines"
-                                                                                    ),
-                                                                                    html.Span(
-                                                                                        "Tim"
+                                                                                    "Fantasy Sidelines",
+                                                                                    html.Div(
+                                                                                        "Tim",
+                                                                                        style={"font-size": "0.7em",
+                                                                                        "font-style": "italic"}
                                                                                     ),
                                                                                 ],
-                                                                                width="auto",
-                                                                            ),
-                                                                            dbc.Col(
-                                                                                html.Span(
-                                                                                    "Score1"
-                                                                                ),
                                                                                 style={
-                                                                                    "display": "flex",
-                                                                                    "align-items": "center",
+                                                                                    "margin": "0",
+                                                                                    "font-size": "1em",
+                                                                                    "line-height": "1.1em",
+                                                                                    "flex-grow": "1",
+                                                                                    "word-break": "break-word",
                                                                                 },
-                                                                                width="auto",
                                                                             ),
-                                                                        ]
+                                                                            html.Div(
+                                                                                [
+                                                                                    "115.15",
+                                                                                    html.Div(
+                                                                                        "110.8",
+                                                                                        style={"font-size": "0.7em",
+                                                                                        "font-style": "italic"}
+                                                                                    ),
+                                                                                ],
+                                                                                style={"line-height": "1.1em",
+                                                                                "margin-left": "0.1em",
+                                                                                "text-align": "right"}
+                                                                            ),
+                                                                        ],
                                                                     ),
                                                                 ),
                                                             ],
                                                             color="dark",
                                                             outline=True,
-                                                            style={
-                                                                "text-align": "right"
-                                                            },
+                                                            style={"justify-content": "flex-end",
+                                                                "right": "0",
+                                                                "text-align": "right",}
                                                         ),
-                                                        class_name="mb-0 text-right",
+                                                        className="mb-0",
+                                                            style={
+                                                                
+                                                                "display": "flex",
+                                                                            "align-items": "center",
+                                                                            "width": "46%",
+                                                                            "padding": "5px 2%",
+                                                                            "top": "0",
+                                                                            "z-index": "2",
+                                                            },
                                                     ),
                                                     # dbc.Col(html.P("vs."), style={"display": "flex", "align-items": "center"}),
-                                                    dbc.Col(
+                                                    html.Div(
                                                         dbc.Card(
                                                             [
                                                                 dbc.CardBody(
                                                                     dbc.Row(
                                                                         [
-                                                                            dbc.Col(
-                                                                                html.Span(
-                                                                                    "Score2"
-                                                                                ),
-                                                                                style={
-                                                                                    "display": "flex",
-                                                                                    "align-items": "center",
-                                                                                },
-                                                                                # width="auto",
-                                                                            ),
-                                                                            dbc.Col(
+                                                                            html.Div(
                                                                                 [
-                                                                                    html.H6(
-                                                                                        "Poor Decisions 😢"
-                                                                                    ),
-                                                                                    html.Span(
-                                                                                        "Pete"
+                                                                                    "Fantasy Sidelines",
+                                                                                    html.Div(
+                                                                                        "Tim",
+                                                                                        style={"font-size": "0.7em",
+                                                                                        "font-style": "italic"}
                                                                                     ),
                                                                                 ],
-                                                                                width="auto",
+                                                                                style={
+                                                                                    "margin": "0",
+                                                                                    "font-size": "1em",
+                                                                                    "line-height": "1.1em",
+                                                                                    "flex-grow": "1",
+                                                                                    "word-break": "break-word",
+                                                                                },
                                                                             ),
-                                                                        ]
+                                                                            html.Div(
+                                                                                [
+                                                                                    "115.15",
+                                                                                    html.Div(
+                                                                                        "110.8",
+                                                                                        style={"font-size": "0.7em",
+                                                                                        "font-style": "italic"}
+                                                                                    ),
+                                                                                ],
+                                                                                style={"line-height": "1.1em",
+                                                                                "margin-right": "0.1em",
+                                                                                "text-align": "left"}
+                                                                            ),
+                                                                        ],
                                                                     ),
                                                                 ),
                                                             ],
                                                             color="dark",
                                                             outline=True,
-                                                            style={
-                                                                "text-align": "left"
-                                                            },
+                                                            style={"justify-content": "flex-start",
+                                                                "left": "0",
+                                                                "text-align": "left",}
                                                         ),
-                                                        class_name="mb-0 text-left",
+                                                        className="mb-0",
+                                                            style={
+                                                                
+                                                                "display": "flex",
+                                                                            "align-items": "center",
+                                                                            "width": "46%",
+                                                                            "padding": "5px 2%",
+                                                                            "top": "0",
+                                                                            "z-index": "2",
+                                                            },
                                                     ),
-                                                ]
+                                                ],
+                                                style={
+                                                    "display": "flex",
+                                                    "justify-content": "space-between",
+                                                    "psoition": "relative",
+                                                    "border": "1px solid",
+                                                    "border-radius": "10px",
+                                                    "opacity": "0.8",
+                                                },
                                             ),
                                         ],
                                         title="Week 1",
                                         class_name="rounded",
-                                        style={"border-color": "#CBB677"},
+                                        style={
+                                            "border-color": "#CBB677",
+                                            "width": "95%",
+                                            "max-width": "600px",
+                                            "margin": "10px auto",
+                                        },
                                     ),
                                 ],
                                 start_collapsed=True,
