@@ -57,8 +57,10 @@ layout = html.Div(
                                                                                     "Fantasy Sidelines",
                                                                                     html.Div(
                                                                                         "Tim",
-                                                                                        style={"font-size": "0.7em",
-                                                                                        "font-style": "italic"}
+                                                                                        style={
+                                                                                            "font-size": "0.7em",
+                                                                                            "font-style": "italic",
+                                                                                        },
                                                                                     ),
                                                                                 ],
                                                                                 style={
@@ -74,13 +76,17 @@ layout = html.Div(
                                                                                     "115.15",
                                                                                     html.Div(
                                                                                         "110.8",
-                                                                                        style={"font-size": "0.7em",
-                                                                                        "font-style": "italic"}
+                                                                                        style={
+                                                                                            "font-size": "0.7em",
+                                                                                            "font-style": "italic",
+                                                                                        },
                                                                                     ),
                                                                                 ],
-                                                                                style={"line-height": "1.1em",
-                                                                                "margin-left": "0.1em",
-                                                                                "text-align": "right"}
+                                                                                style={
+                                                                                    "line-height": "1.1em",
+                                                                                    "margin-left": "0.1em",
+                                                                                    "text-align": "right",
+                                                                                },
                                                                             ),
                                                                         ],
                                                                     ),
@@ -88,20 +94,21 @@ layout = html.Div(
                                                             ],
                                                             color="dark",
                                                             outline=True,
-                                                            style={"justify-content": "flex-end",
+                                                            style={
+                                                                "justify-content": "flex-end",
                                                                 "right": "0",
-                                                                "text-align": "right",}
+                                                                "text-align": "right",
+                                                            },
                                                         ),
                                                         className="mb-0",
-                                                            style={
-                                                                
-                                                                "display": "flex",
-                                                                            "align-items": "center",
-                                                                            "width": "46%",
-                                                                            "padding": "5px 2%",
-                                                                            "top": "0",
-                                                                            "z-index": "2",
-                                                            },
+                                                        style={
+                                                            "display": "flex",
+                                                            "align-items": "center",
+                                                            "width": "46%",
+                                                            "padding": "5px 2%",
+                                                            "top": "0",
+                                                            "z-index": "2",
+                                                        },
                                                     ),
                                                     # dbc.Col(html.P("vs."), style={"display": "flex", "align-items": "center"}),
                                                     html.Div(
@@ -115,8 +122,10 @@ layout = html.Div(
                                                                                     "Fantasy Sidelines",
                                                                                     html.Div(
                                                                                         "Tim",
-                                                                                        style={"font-size": "0.7em",
-                                                                                        "font-style": "italic"}
+                                                                                        style={
+                                                                                            "font-size": "0.7em",
+                                                                                            "font-style": "italic",
+                                                                                        },
                                                                                     ),
                                                                                 ],
                                                                                 style={
@@ -132,13 +141,17 @@ layout = html.Div(
                                                                                     "115.15",
                                                                                     html.Div(
                                                                                         "110.8",
-                                                                                        style={"font-size": "0.7em",
-                                                                                        "font-style": "italic"}
+                                                                                        style={
+                                                                                            "font-size": "0.7em",
+                                                                                            "font-style": "italic",
+                                                                                        },
                                                                                     ),
                                                                                 ],
-                                                                                style={"line-height": "1.1em",
-                                                                                "margin-right": "0.1em",
-                                                                                "text-align": "left"}
+                                                                                style={
+                                                                                    "line-height": "1.1em",
+                                                                                    "margin-right": "0.1em",
+                                                                                    "text-align": "left",
+                                                                                },
                                                                             ),
                                                                         ],
                                                                     ),
@@ -146,20 +159,21 @@ layout = html.Div(
                                                             ],
                                                             color="dark",
                                                             outline=True,
-                                                            style={"justify-content": "flex-start",
+                                                            style={
+                                                                "justify-content": "flex-start",
                                                                 "left": "0",
-                                                                "text-align": "left",}
+                                                                "text-align": "left",
+                                                            },
                                                         ),
                                                         className="mb-0",
-                                                            style={
-                                                                
-                                                                "display": "flex",
-                                                                            "align-items": "center",
-                                                                            "width": "46%",
-                                                                            "padding": "5px 2%",
-                                                                            "top": "0",
-                                                                            "z-index": "2",
-                                                            },
+                                                        style={
+                                                            "display": "flex",
+                                                            "align-items": "center",
+                                                            "width": "46%",
+                                                            "padding": "5px 2%",
+                                                            "top": "0",
+                                                            "z-index": "2",
+                                                        },
                                                     ),
                                                 ],
                                                 style={

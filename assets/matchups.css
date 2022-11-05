@@ -1,0 +1,389 @@
+#main {
+    position: relative;
+    z-index: 1;
+}
+
+.matchups {
+    margin: 2em 0 6em;
+}
+.weekContainer {
+    display: flex;
+    width: 95%;
+    max-width: 600px;
+    margin: 0 auto;
+    align-items: center;
+}
+
+:global(.changeWeek) {
+    font-size: 3em;
+    cursor: pointer;
+    color: #888;
+}
+
+:global(.changeWeek:hover) {
+    color: #00316b;
+}
+
+.spacer {
+    width: 48px;
+}
+
+.weekText {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 2em;
+}
+
+@media (max-width: 800px) {
+    .weekText {
+        font-size: 1.6em;
+    }
+}
+
+@media (max-width: 400px) {
+    .weekText {
+        font-size: 1.3em;
+    }
+}
+
+@media (max-width: 350px) {
+    .weekText {
+        font-size: 1.2em;
+    }
+}
+
+.matchup {
+    width: 95%;
+    max-width: 500px;
+    margin: 10px auto;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    border: 1px solid #bbb;
+    border-radius: 10px;
+    opacity: 0.8;
+    cursor: pointer;
+    transition: opacity 0.5s;
+    overflow: hidden;
+}
+
+.header:hover {
+    opacity: 1;
+}
+
+.opponent {
+    display: flex;
+    align-items: center;
+    width: 50%;
+    padding: 5px 2%;
+    top: 0;
+    z-index: 2;
+}
+
+.home {
+    justify-content: flex-start;
+    left: 0;
+    text-align: left;
+    background-color: #DACCE6;
+}
+
+/* :global(.homeGlow) {
+    box-shadow: 0 0 6px 4px #3279cf;
+    background-color: #00316b !important;
+} */
+
+.away {
+    justify-content: flex-end;
+    right: 0;
+    text-align: right;
+    background-color: #F4EFE1;
+}
+
+/* :global(.awayGlow) {
+    box-shadow: 0 0 6px 4px #d15454;
+    background-color: #920505 !important;
+} */
+
+.name {
+    margin: 0 5px;
+    font-size: 1em;
+    line-height: 1.1em;
+    flex-grow: 1;
+    word-break: break-word;
+    color: #333333;
+    font-style: bold;
+}
+
+.avatar {
+    vertical-align: middle;
+    border-radius: 50%;
+    height: 35px;
+    width: 35px;
+    margin: 0;
+    border: 0.25px solid #777;
+    background-color: #333333;
+}
+
+/* .playerAvatar {
+    vertical-align: middle;
+    height: 45px;
+    width: 45px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto 45px;
+}
+.pos {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    max-width: 32px;
+    min-width: 32px;
+    height: 32px;
+}
+
+.QB {
+    background-color: var(--QB);
+}
+
+.WR {
+    background-color: var(--WR);
+}
+
+.RB {
+    background-color: var(--RB);
+}
+
+.TE {
+    background-color: var(--TE);
+}
+
+.FLEX {
+    background: linear-gradient(to right, var(--WR), var(--WR) 33.33%, var(--RB) 33.33%, var(--RB) 66.66%, var(--TE) 66.66%);
+}
+
+.WRRB {
+    background: linear-gradient(to right, var(--WR), var(--WR) 50%, var(--RB) 50%);
+}
+
+.K {
+    background-color: var(--K);
+}
+
+.DEF {
+    background-color: var(--DEF);
+}
+
+.DL, .DE, .DT {
+    background-color: var(--DL);
+}
+
+.LB {
+    background-color: var(--LB);
+}
+
+.DB, .CB, .SS, .FS {
+    background-color: var(--DB);
+}
+
+.IDP {
+    background: linear-gradient(to right, var(--DL), var(--DL) 33.33%, var(--LB) 33.33%, var(--LB) 66.66%, var(--DB) 66.66%);
+}
+
+.rosters {
+    position: relative;
+    background-color: var(--fff);
+    border-radius: 8px;
+    overflow: hidden;
+    border-left: 1px solid #bbb;
+    border-right: 1px solid #bbb;
+    border-bottom: 1px solid #bbb;
+    transition: max-height 0.4s;
+}
+
+.line {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #bbb;
+}
+
+.player {
+    position: relative;
+    width: 46%;
+}
+
+.iconAndTeam {
+    display: flex;
+    align-items: center;
+}
+
+.iconAndTeamHome {
+    justify-content: flex-start;
+}
+
+.iconAndTeamAway {
+    justify-content: flex-end;
+}
+
+.playerHome {
+    padding: 0 1.5% 0 2.5%;
+    text-align: left;
+}
+
+.playerAway {
+    padding: 0 2.5% 0 1.5%;
+    text-align: right;
+}
+
+.playerInfo {
+    display: inline-block;
+    padding: 0 6px;
+}
+
+.playerTeam {
+    display: inline-block;
+    color: #888;
+    font-style: italic;
+    text-align: center;
+    font-size: 0.5em;
+}
+
+.playerName {
+    word-break: break-word;
+}
+
+.playerNameHome {
+    text-align: left;
+}
+
+.playerNameAway {
+    text-align: right;
+} */
+
+@media (max-width: 500px) {
+    .name {
+        font-size: 0.8em;
+    }
+    .totalPoints {
+        font-size: 0.8em;
+    }
+    .nameHolder {
+        font-size: 0.8em;
+    }
+    .points {
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 410px) {
+    .name {
+        font-size: 0.7em;
+    }
+    .totalPoints {
+        font-size: 0.7em;
+    }
+    .nameHolder {
+        font-size: 0.7em;
+    }
+    .points {
+        font-size: 0.75em;
+    }
+}
+
+@media (max-width: 360px) {
+    .name {
+        font-size: 0.5em;
+    }
+    .totalPoints {
+        font-size: 0.5em;
+    }
+}
+
+/* .dividerLine {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    height: 100%;
+    width: 0;
+    border-left: 1px solid var(--eee);
+    z-index: 1;
+}
+
+.close {
+    display: block;
+    width: 100%;
+    background-color: var(--eee);
+    text-align: center;
+    cursor: pointer;
+    z-index: 2;
+    font-size: 1.1em;
+    padding: 6px 0;
+}
+
+.close:hover {
+    background-color: var(--ddd);
+}
+
+.nameHolder {
+    display: block;
+}
+
+.nameHolderR {
+    justify-content: flex-end;
+    text-align: right;
+}
+
+.nameHolderL {
+    justify-content: flex-start;
+    text-align: left;
+} */
+
+.totalPoints {
+    line-height: 1.1em;
+    color: #333333;
+    /* white-space:nowrap; */
+}
+
+.totalPointsR {
+    margin-right: 0.1em;
+    text-align: right;
+}
+
+.totalPointsL {
+    margin-left: 0.1em;
+    text-align: left;
+}
+
+.totalProjection {
+    color: #333333;
+    font-size: 0.7em;
+    font-style: italic;
+    /* white-space:nowrap; */
+}
+
+/* .points {
+    position: absolute;
+    line-height: 1.1em;
+    top: 1em;
+} */
+
+/* .pointsL {
+    left: 1em;
+}
+
+.pointsR {
+    right: 1em;
+} */
+
+/* .playerEmpty {
+    height: 100%;
+    color: #555;
+    font-style: italic;
+    display: flex;
+    align-items: center;
+} */
