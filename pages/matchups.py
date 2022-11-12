@@ -1,65 +1,187 @@
-# import dash
+import dash
+from dash import html, Input, Output, dcc
+import dash_bootstrap_components as dbc
 
-# layout = html.Div([
-#     dbc.Container([
-#         dbc.Row([
-#             dbc.Col(html.H1("Welcome to the COVID-19 dashboard", className="text-center")
-#                     , className="mb-5 mt-5")
-#         ]),
-#         dbc.Row([
-#             dbc.Col(html.H5(children='This app marks my very first attempt at using Plotly, Dash and Bootstrap! '
-#                                      )
-#                     , className="mb-4")
-#             ]),
+from packages.db_connect import get_matchups
 
-#         dbc.Row([
-#             dbc.Col(html.H5(children='It consists of two main pages: Global, which gives an overview of the COVID-19 cases and deaths around the world, '
-#                                      'Singapore, which gives an overview of the situation in Singapore after different measures have been implemented by the local government.')
-#                     , className="mb-5")
-#         ]),
+reg_season = get_matchups()
 
-#         dbc.Row([
-#             dbc.Col(dbc.Card(children=[html.H3(children='Get the original datasets used in this dashboard',
-#                                                className="text-center"),
-#                                        dbc.Row([dbc.Col(dbc.Button("Global", href="https://data.europa.eu/euodp/en/data/dataset/covid-19-coronavirus-data/resource/55e8f966-d5c8-438e-85bc-c7a5a26f4863",
-#                                                                    color="primary"),
-#                                                         className="mt-3"),
-#                                                 dbc.Col(dbc.Button("Singapore", href="https://data.world/hxchua/covid-19-singapore",
-#                                                                    color="primary"),
-#                                                         className="mt-3")], justify="center")
-#                                        ],
-#                              body=True, color="dark", outline=True)
-#                     , width=4, className="mb-4"),
+matches_merged = reg_season.merge(
+    reg_season,
+    left_on=["team_key", "Week"],
+    right_on=["opp_team_key", "Week"],
+    suffixes=("", "_opp"),
+)
 
-#             dbc.Col(dbc.Card(children=[html.H3(children='Access the code used to build this dashboard',
-#                                                className="text-center"),
-#                                        dbc.Button("GitHub",
-#                                                   href="https://github.com/meredithwan/covid-dash-app",
-#                                                   color="primary",
-#                                                   className="mt-3"),
-#                                        ],
-#                              body=True, color="dark", outline=True)
-#                     , width=4, className="mb-4"),
+matchups = matches_merged[
+    [
+        "Week",
+        "team_key",
+        "Prev. Wk Rk",
+        "Manager",
+        "Team",
+        "Wk Pts",
+        "Wk Pro. Pts",
+        "opp_team_key",
+        "Prev. Wk Rk_opp",
+        "Opp Manager",
+        "Opp Team",
+        "Opp Wk Pts",
+        "Opp Wk Pro. Pts",
+    ]
+][
+    (matches_merged["Prev. Wk Rk"] < matches_merged["Prev. Wk Rk_opp"])
+    | (
+        (matches_merged["team_key"] < matches_merged["opp_team_key"])
+        & (matches_merged["Week"] == 1)
+    )
+]
 
-#             dbc.Col(dbc.Card(children=[html.H3(children='Read the Medium article detailing the process',
-#                                                className="text-center"),
-#                                        dbc.Button("Medium",
-#                                                   href="https://medium.com/@meredithwan",
-#                                                   color="primary",
-#                                                   className="mt-3"),
+matchups.reset_index(drop=True, inplace=True)
+max_week = matchups["Week"].max()
+current_week = f"Week {max_week}"
+dropdown_options = [f"Week {wk}" for wk in matchups["Week"].unique()]
 
-#                                        ],
-#                              body=True, color="dark", outline=True)
-#                     , width=4, className="mb-4")
-#         ], className="mb-5"),
 
-#         html.A("Special thanks to Flaticon for the icon in COVID-19 Dash's logo.",
-#                href="https://www.flaticon.com/free-icon/coronavirus_2913604")
+def matchup_card(
+    home_team,
+    home_manager,
+    home_pts,
+    home_pro_pts,
+    home_rk,
+    away_team,
+    away_manager,
+    away_pts,
+    away_pro_pts,
+    away_rk,
+):
+    return html.Div(
+        [
+            html.Div(
+                [
+                    html.Img(
+                        className="avatar",
+                        src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/325/pile-of-poo_1f4a9.png",
+                        alt="Poop",
+                    ),
+                    html.Div(
+                        [
+                            home_team,
+                            html.Div(
+                                f"{home_manager} ({home_rk})",
+                                className="totalProjection",
+                            ),
+                        ],
+                        className="name",
+                    ),
+                    html.Div(
+                        [home_pts, html.Div(home_pro_pts, className="totalProjection")],
+                        className="totalPoints totalPointsR",
+                    ),
+                ],
+                className="opponent home",
+            ),
+            html.Div(
+                [
+                    html.Div(
+                        [away_pts, html.Div(away_pro_pts, className="totalProjection")],
+                        className="totalPoints totalPointsL",
+                    ),
+                    html.Div(
+                        [
+                            away_team,
+                            html.Div(
+                                f"{away_manager} ({away_rk})",
+                                className="totalProjection",
+                            ),
+                        ],
+                        className="name",
+                    ),
+                    html.Img(
+                        className="avatar",
+                        src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/325/pile-of-poo_1f4a9.png",
+                        alt="Poop",
+                    ),
+                ],
+                className="opponent away",
+            ),
+        ],
+        className="header",
+    )
 
-#     ])
+def matchups_layout(matchups, week):
+    matchups_week = matchups[matchups['Week'] == week]
+    matchup_layout = []
 
-# ])
+    for index, match in matchups_week.iterrows():
+        home_team = match["Opp Team"]
+        home_manager = match["Opp Manager"]
+        home_pts = match["Opp Wk Pts"]
+        home_pro_pts = match["Opp Wk Pro. Pts"]
+        home_rk = match["Prev. Wk Rk_opp"]
+        away_team = match["Team"]
+        away_manager = match["Manager"]
+        away_pts = match["Wk Pts"]
+        away_pro_pts = match["Wk Pro. Pts"]
+        away_rk = match["Prev. Wk Rk"]
+        matchup_layout.append(
+            matchup_card(
+                home_team,
+                home_manager,
+                home_pts,
+                home_pro_pts,
+                home_rk,
+                away_team,
+                away_manager,
+                away_pts,
+                away_pro_pts,
+                away_rk,
+            )
+        )
 
-# # needed only if running this as a single page app
-# # if __name__ == '__main__':
-# #     app.run_server(host='127.0.0.1', debug=True)
+    return matchup_layout
+
+matchup_page = html.Div(
+    html.Div(
+        [
+            html.Div(
+                html.H1("Matchups", className="weekText", style={"color": "#B599CE"}),
+                className="weekContainer",
+            ),
+            html.Div(
+                dcc.Dropdown(
+                    dropdown_options,
+                    value=current_week,
+                    id="matchups-dropdown",
+                    placeholder="Week",
+                    className="drop-down",
+                ),
+                className="drop-down-matchups",
+            ),
+            html.Div(matchups_layout(matchups, max_week), className="matchup", id="vis-matchups"),
+        ],
+        className="matchups",
+    ),
+    className="main",
+)
+
+
+@dash.callback(
+    Output("vis-matchups", "children"),
+    Input("matchups-dropdown", "value"),
+)
+def matcups_update(value):
+    if value:
+        week = int(value[5:])
+    matchup_layout = matchups_layout(matchups, week)
+    return matchup_layout
+
+
+# @dash.callback(
+#     Output("dropdown", "value"),
+#     Input("dropdown", "value"),
+# )
+# def change_page(value):
+#     if value:
+#         return value
+#     return "Week 10"

@@ -154,22 +154,13 @@ app.layout = html.Div([dcc.Location(id="url"), sidebar, content])
 @app.callback(Output("page-content", "children"), [Input("url", "pathname")])
 def render_page_content(pathname):
     if pathname == "/":
-        # return html.P("Home/Rankings")
         return home.layout
+
     elif pathname == "/bylaws":
-        # return html.P("Bylaws")
         return bylaws.layout
+
     elif pathname == "/matchups":
-        return html.Div(
-            [
-                html.H1("Matchups build in progress. ", className="text-danger"),
-                html.Hr(),
-                html.P(
-                    "Patience is not the ability to wait, but the ability to wait with a good attitude."
-                ),
-            ],
-            className="p-3 bg-light rounded-3",
-        )
+        return matchups.matchup_page
 
     elif pathname == "/drafts":
         return html.Div(
