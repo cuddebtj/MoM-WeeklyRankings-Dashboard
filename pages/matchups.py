@@ -1,47 +1,48 @@
 import dash
-from dash import html, Input, Output, dcc
+from dash import html, Input, Output, dcc, ctx
 import dash_bootstrap_components as dbc
 
 from packages.db_connect import get_matchups
 
-reg_season = get_matchups()
+def reg_season_matchups():
+    reg_season = get_matchups()
 
-matches_merged = reg_season.merge(
-    reg_season,
-    left_on=["team_key", "Week"],
-    right_on=["opp_team_key", "Week"],
-    suffixes=("", "_opp"),
-)
-
-matchups = matches_merged[
-    [
-        "Week",
-        "team_key",
-        "Prev. Wk Rk",
-        "Manager",
-        "Team",
-        "Wk Pts",
-        "Wk Pro. Pts",
-        "opp_team_key",
-        "Prev. Wk Rk_opp",
-        "Opp Manager",
-        "Opp Team",
-        "Opp Wk Pts",
-        "Opp Wk Pro. Pts",
-    ]
-][
-    (matches_merged["Prev. Wk Rk"] < matches_merged["Prev. Wk Rk_opp"])
-    | (
-        (matches_merged["team_key"] < matches_merged["opp_team_key"])
-        & (matches_merged["Week"] == 1)
+    matches_merged = reg_season.merge(
+        reg_season,
+        left_on=["team_key", "Week"],
+        right_on=["opp_team_key", "Week"],
+        suffixes=("", "_opp"),
     )
-]
 
-matchups.reset_index(drop=True, inplace=True)
-max_week = matchups["Week"].max()
-current_week = f"Week {max_week}"
-dropdown_options = [f"Week {wk}" for wk in matchups["Week"].unique()]
+    matchups = matches_merged[
+        [
+            "Week",
+            "team_key",
+            "Prev. Wk Rk",
+            "Manager",
+            "Team",
+            "Wk Pts",
+            "Wk Pro. Pts",
+            "opp_team_key",
+            "Prev. Wk Rk_opp",
+            "Opp Manager",
+            "Opp Team",
+            "Opp Wk Pts",
+            "Opp Wk Pro. Pts",
+        ]
+    ][
+        (matches_merged["Prev. Wk Rk"] < matches_merged["Prev. Wk Rk_opp"])
+        | (
+            (matches_merged["team_key"] < matches_merged["opp_team_key"])
+            & (matches_merged["Week"] == 1)
+        )
+    ]
 
+    matchups.reset_index(drop=True, inplace=True)
+    max_week = matchups["Week"].max()
+    dropdown_options = [f"Week {wk}" for wk in matchups["Week"].unique()]
+
+    return matchups, max_week, dropdown_options
 
 def matchup_card(
     home_team,
@@ -141,7 +142,10 @@ def matchups_layout(matchups, week):
 
     return matchup_layout
 
+matchups, max_week, dropdown_options = reg_season_matchups()
+
 matchup_page = html.Div(
+    [
     html.Div(
         [
             html.Div(
@@ -151,7 +155,7 @@ matchup_page = html.Div(
             html.Div(
                 dcc.Dropdown(
                     dropdown_options,
-                    value=current_week,
+                    value=f"Week {max_week}",
                     id="matchups-dropdown",
                     placeholder="Week",
                     className="drop-down",
@@ -164,6 +168,12 @@ matchup_page = html.Div(
         ],
         className="matchups",
     ),
+    dcc.Interval(
+            id="matchups-interval-component",
+            interval=900 * 1000,  # in milliseconds
+            n_intervals=0,
+        ),
+],
     className="main",
 )
 
@@ -171,19 +181,18 @@ matchup_page = html.Div(
 @dash.callback(
     Output("vis-matchups", "children"),
     Input("matchups-dropdown", "value"),
+    Input("matchups-interval-component", "n_intervals")
 )
-def matcups_update(value):
-    if value:
-        week = int(value[5:])
-    matchup_layout = matchups_layout(matchups, week)
-    return matchup_layout
-
-
-# @dash.callback(
-#     Output("dropdown", "value"),
-#     Input("dropdown", "value"),
-# )
-# def change_page(value):
-#     if value:
-#         return value
-#     return "Week 10"
+def matcups_update(value, n):
+    trig_id = ctx.triggered_id
+    if trig_id == 'matchups-dropdown':
+        if value:
+            week = int(value[5:])
+        matchup_layout = matchups_layout(matchups, week)
+        return matchup_layout
+    elif trig_id == 'matchups-interval-component':
+        match_ups, max_week, dropdown_options = reg_season_matchups()
+        m_layout = matchups_layout(match_ups, max_week)
+        return m_layout
+    else:
+        return dash.no_update

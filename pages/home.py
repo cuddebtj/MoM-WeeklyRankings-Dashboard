@@ -4,21 +4,8 @@ import dash_bootstrap_components as dbc
 
 from packages.db_connect import get_reg_season, get_playoffs
 
-# reg_season = get_reg_season()
-# max_week = reg_season["Week"].max()
-# reg_season = reg_season[reg_season["Week"] == max_week]
-# reg_season = reg_season[reg_season.columns[1:]]
-# reg_season_table = dbc.Table.from_dataframe(
-#     reg_season, striped=True, bordered=True, hover=True, responsive=True, className="table-sm rounded m-2"
-# )
-
 playoffs = get_playoffs()
 playoff_week = playoffs["Week"].max()
-# playoffs = playoffs[playoffs["Week"] == playoff_week]
-# playoffs = playoffs[playoffs.columns[1:]]
-# playoff_table = dbc.Table.from_dataframe(
-#     playoffs, striped=True, bordered=True, hover=True, responsive=True, className="table-sm rounded m-2"
-# )
 
 layout = html.Div(
     [
