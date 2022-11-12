@@ -155,6 +155,8 @@ matchup_page = html.Div(
                     id="matchups-dropdown",
                     placeholder="Week",
                     className="drop-down",
+                    clearable=False,
+                    searchable=False,
                 ),
                 className="drop-down-matchups",
             ),
