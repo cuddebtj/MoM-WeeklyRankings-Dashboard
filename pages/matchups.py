@@ -2,229 +2,186 @@ import dash
 from dash import html, Input, Output, dcc
 import dash_bootstrap_components as dbc
 
-# from packages.db_connect import get_reg_season, get_playoffs
+from packages.db_connect import get_matchups
 
-app = dash.Dash(
-    __name__,
-    use_pages=False,
-    suppress_callback_exceptions=True,
-    external_stylesheets=[dbc.themes.SLATE],
-    meta_tags=[{"name": "viewport", "content": "width=device-width, initial-scale=1"}],
-    title="MoM-FFbl",
-    # assets_folder="static/"
+reg_season = get_matchups()
+
+matches_merged = reg_season.merge(
+    reg_season,
+    left_on=["team_key", "Week"],
+    right_on=["opp_team_key", "Week"],
+    suffixes=("", "_opp"),
 )
 
-server = app.server
-
-
-def matchup_cards():
-    pass
-
-
-layout = html.Div(
+matchups = matches_merged[
     [
-        dbc.Container(
-            [
-                dbc.Row(
-                    [
-                        dbc.Col(
-                            html.H1(
-                                "Matchups",
-                                className="text-left",
-                                style={"color": "#B599CE"},
-                            ),
-                        )
-                    ],
-                    justify="left",
-                ),
-                dbc.Row(
-                    [
-                        dbc.Col(
-                            dbc.Accordion(
-                                [
-                                    dbc.AccordionItem(
-                                        [
-                                            dbc.Row(
-                                                [
-                                                    html.Div(
-                                                        dbc.Card(
-                                                            [
-                                                                dbc.CardBody(
-                                                                    dbc.Row(
-                                                                        [
-                                                                            html.Div(
-                                                                                [
-                                                                                    "Fantasy Sidelines",
-                                                                                    html.Div(
-                                                                                        "Tim",
-                                                                                        style={
-                                                                                            "font-size": "0.7em",
-                                                                                            "font-style": "italic",
-                                                                                        },
-                                                                                    ),
-                                                                                ],
-                                                                                style={
-                                                                                    "margin": "0",
-                                                                                    "font-size": "1em",
-                                                                                    "line-height": "1.1em",
-                                                                                    "flex-grow": "1",
-                                                                                    "word-break": "break-word",
-                                                                                },
-                                                                            ),
-                                                                            html.Div(
-                                                                                [
-                                                                                    "115.15",
-                                                                                    html.Div(
-                                                                                        "110.8",
-                                                                                        style={
-                                                                                            "font-size": "0.7em",
-                                                                                            "font-style": "italic",
-                                                                                        },
-                                                                                    ),
-                                                                                ],
-                                                                                style={
-                                                                                    "line-height": "1.1em",
-                                                                                    "margin-left": "0.1em",
-                                                                                    "text-align": "right",
-                                                                                },
-                                                                            ),
-                                                                        ],
-                                                                    ),
-                                                                ),
-                                                            ],
-                                                            color="dark",
-                                                            outline=True,
-                                                            style={
-                                                                "justify-content": "flex-end",
-                                                                "right": "0",
-                                                                "text-align": "right",
-                                                            },
-                                                        ),
-                                                        className="mb-0",
-                                                        style={
-                                                            "display": "flex",
-                                                            "align-items": "center",
-                                                            "width": "46%",
-                                                            "padding": "5px 2%",
-                                                            "top": "0",
-                                                            "z-index": "2",
-                                                        },
-                                                    ),
-                                                    # dbc.Col(html.P("vs."), style={"display": "flex", "align-items": "center"}),
-                                                    html.Div(
-                                                        dbc.Card(
-                                                            [
-                                                                dbc.CardBody(
-                                                                    dbc.Row(
-                                                                        [
-                                                                            html.Div(
-                                                                                [
-                                                                                    "Fantasy Sidelines",
-                                                                                    html.Div(
-                                                                                        "Tim",
-                                                                                        style={
-                                                                                            "font-size": "0.7em",
-                                                                                            "font-style": "italic",
-                                                                                        },
-                                                                                    ),
-                                                                                ],
-                                                                                style={
-                                                                                    "margin": "0",
-                                                                                    "font-size": "1em",
-                                                                                    "line-height": "1.1em",
-                                                                                    "flex-grow": "1",
-                                                                                    "word-break": "break-word",
-                                                                                },
-                                                                            ),
-                                                                            html.Div(
-                                                                                [
-                                                                                    "115.15",
-                                                                                    html.Div(
-                                                                                        "110.8",
-                                                                                        style={
-                                                                                            "font-size": "0.7em",
-                                                                                            "font-style": "italic",
-                                                                                        },
-                                                                                    ),
-                                                                                ],
-                                                                                style={
-                                                                                    "line-height": "1.1em",
-                                                                                    "margin-right": "0.1em",
-                                                                                    "text-align": "left",
-                                                                                },
-                                                                            ),
-                                                                        ],
-                                                                    ),
-                                                                ),
-                                                            ],
-                                                            color="dark",
-                                                            outline=True,
-                                                            style={
-                                                                "justify-content": "flex-start",
-                                                                "left": "0",
-                                                                "text-align": "left",
-                                                            },
-                                                        ),
-                                                        className="mb-0",
-                                                        style={
-                                                            "display": "flex",
-                                                            "align-items": "center",
-                                                            "width": "46%",
-                                                            "padding": "5px 2%",
-                                                            "top": "0",
-                                                            "z-index": "2",
-                                                        },
-                                                    ),
-                                                ],
-                                                style={
-                                                    "display": "flex",
-                                                    "justify-content": "space-between",
-                                                    "psoition": "relative",
-                                                    "border": "1px solid",
-                                                    "border-radius": "10px",
-                                                    "opacity": "0.8",
-                                                },
-                                            ),
-                                        ],
-                                        title="Week 1",
-                                        class_name="rounded",
-                                        style={
-                                            "border-color": "#CBB677",
-                                            "width": "95%",
-                                            "max-width": "600px",
-                                            "margin": "10px auto",
-                                        },
-                                    ),
-                                ],
-                                start_collapsed=True,
-                                always_open=True,
-                            ),
-                            width="auto",
-                            className="mb-1 rounded",
-                        ),
-                    ],
-                    justify="center",
-                    className="mb-2",
-                ),
-            ]
-        ),
-        # dcc.Interval(
-        #     id="interval-component",
-        #     interval=900 * 1000,  # in milliseconds
-        #     n_intervals=0,
-        # ),
+        "Week",
+        "team_key",
+        "Prev. Wk Rk",
+        "Manager",
+        "Team",
+        "Wk Pts",
+        "Wk Pro. Pts",
+        "opp_team_key",
+        "Prev. Wk Rk_opp",
+        "Opp Manager",
+        "Opp Team",
+        "Opp Wk Pts",
+        "Opp Wk Pro. Pts",
     ]
+][
+    (matches_merged["Prev. Wk Rk"] < matches_merged["Prev. Wk Rk_opp"])
+    | (
+        (matches_merged["team_key"] < matches_merged["opp_team_key"])
+        & (matches_merged["Week"] == 1)
+    )
+]
+
+matchups.reset_index(drop=True, inplace=True)
+max_week = matchups["Week"].max()
+current_week = f"Week {max_week}"
+dropdown_options = [f"Week {wk}" for wk in matchups["Week"].unique()]
+
+
+def matchup_card(
+    home_team,
+    home_manager,
+    home_pts,
+    home_pro_pts,
+    home_rk,
+    away_team,
+    away_manager,
+    away_pts,
+    away_pro_pts,
+    away_rk,
+):
+    return html.Div(
+        [
+            html.Div(
+                [
+                    html.Img(
+                        className="avatar",
+                        src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/325/pile-of-poo_1f4a9.png",
+                        alt="Poop",
+                    ),
+                    html.Div(
+                        [
+                            home_team,
+                            html.Div(
+                                f"{home_manager} ({home_rk})",
+                                className="totalProjection",
+                            ),
+                        ],
+                        className="name",
+                    ),
+                    html.Div(
+                        [home_pts, html.Div(home_pro_pts, className="totalProjection")],
+                        className="totalPoints totalPointsR",
+                    ),
+                ],
+                className="opponent home",
+            ),
+            html.Div(
+                [
+                    html.Div(
+                        [away_pts, html.Div(away_pro_pts, className="totalProjection")],
+                        className="totalPoints totalPointsL",
+                    ),
+                    html.Div(
+                        [
+                            away_team,
+                            html.Div(
+                                f"{away_manager} ({away_rk})",
+                                className="totalProjection",
+                            ),
+                        ],
+                        className="name",
+                    ),
+                    html.Img(
+                        className="avatar",
+                        src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/325/pile-of-poo_1f4a9.png",
+                        alt="Poop",
+                    ),
+                ],
+                className="opponent away",
+            ),
+        ],
+        className="header",
+    )
+
+def matchups_layout(matchups, week):
+    matchups_week = matchups[matchups['Week'] == week]
+    matchup_layout = []
+
+    for index, match in matchups_week.iterrows():
+        home_team = match["Opp Team"]
+        home_manager = match["Opp Manager"]
+        home_pts = match["Opp Wk Pts"]
+        home_pro_pts = match["Opp Wk Pro. Pts"]
+        home_rk = match["Prev. Wk Rk_opp"]
+        away_team = match["Team"]
+        away_manager = match["Manager"]
+        away_pts = match["Wk Pts"]
+        away_pro_pts = match["Wk Pro. Pts"]
+        away_rk = match["Prev. Wk Rk"]
+        matchup_layout.append(
+            matchup_card(
+                home_team,
+                home_manager,
+                home_pts,
+                home_pro_pts,
+                home_rk,
+                away_team,
+                away_manager,
+                away_pts,
+                away_pro_pts,
+                away_rk,
+            )
+        )
+
+    return matchup_layout
+
+matchup_page = html.Div(
+    html.Div(
+        [
+            html.Div(
+                html.H1("Matchups", className="weekText", style={"color": "#B599CE"}),
+                className="weekContainer",
+            ),
+            html.Div(
+                dcc.Dropdown(
+                    dropdown_options,
+                    value=current_week,
+                    id="matchups-dropdown",
+                    placeholder="Week",
+                    className="drop-down",
+                ),
+                className="drop-down-matchups",
+            ),
+            html.Div(matchups_layout(matchups, max_week), className="matchup", id="vis-matchups"),
+        ],
+        className="matchups",
+    ),
+    className="main",
 )
 
-app.layout = layout
+
+@dash.callback(
+    Output("vis-matchups", "children"),
+    Input("matchups-dropdown", "value"),
+)
+def matcups_update(value):
+    if value:
+        week = int(value[5:])
+    matchup_layout = matchups_layout(matchups, week)
+    return matchup_layout
+
 
 # @dash.callback(
-#     Output("matcups", "children"), Input("interval-component", "n_intervals")
+#     Output("dropdown", "value"),
+#     Input("dropdown", "value"),
 # )
-# def matcups_update(n):
-#     reg_season = get_reg_season()
-#     reg_season = reg_season[reg_season.columns[1:]]
-
-#     pass
-if __name__ == "__main__":
-    app.run_server(debug=True, host="0.0.0.0", port=8050)
+# def change_page(value):
+#     if value:
+#         return value
+#     return "Week 10"

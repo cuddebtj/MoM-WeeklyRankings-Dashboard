@@ -133,3 +133,6 @@ dmypy.json
 
 # secrets
 private.yaml
+
+#ipynb testing files
+*.ipynb

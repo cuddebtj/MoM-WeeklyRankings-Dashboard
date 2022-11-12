@@ -21,6 +21,10 @@ diskcache = "^5.4.0"
 whitenoise = "^6.2.0"
 
 
+[tool.poetry.group.dev.dependencies]
+jupyter = "^1.0.0"
+notebook = "^6.5.2"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

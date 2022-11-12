@@ -50,6 +50,28 @@ ORDER BY "Week",
     return weekly_rankings_df
 
 
+def get_matchups():
+    matchups_query = """
+SELECT "Week",
+team_key,
+"Prev. Wk Rk",
+"Manager",
+"Team",
+"Wk Pts", 
+"Wk Pro. Pts", 
+opp_team_key,
+"Opp Manager", 
+"Opp Team",
+"Opp Wk Pts", 
+"Opp Wk Pro. Pts"
+FROM prod.reg_season_results
+ORDER BY "Week",
+"Prev. Wk Rk"
+"""
+    matchups_df = DatabaseCursor().copy_from_psql(matchups_query)
+    return matchups_df
+
+
 class DatabaseCursor(object):
     def __init__(self):
         """
@@ -58,15 +80,16 @@ class DatabaseCursor(object):
         credential_file = path to private yaml file
         kwargs = {option_schema: "raw"}
         """
-        # credential_file = Path(
-        #     "static/private.yaml"
-        # )
 
-        # with open(credential_file) as file:
-        #     self.credentials = yaml.load(file, Loader=yaml.SafeLoader)
+        try:
+            self.db_url = os.environ["DATABASE_URL"]
 
-        # self.db_url = self.credentials["heroku_db_url"]
-        self.db_url = os.environ["DATABASE_URL"]
+        except:
+            credential_file = Path("static/private.yaml")
+            with open(credential_file) as file:
+                self.credentials = yaml.load(file, Loader=yaml.SafeLoader)
+
+            self.db_url = self.credentials["heroku_db_url"]
 
     def __enter__(self):
         """
