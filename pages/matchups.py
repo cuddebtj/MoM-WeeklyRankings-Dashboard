@@ -112,7 +112,7 @@ def matchup_card(
 
 def matchups_layout(matchups, week):
     matchups_week = matchups[matchups['Week'] == week]
-    matchup_layout = []
+    match_layout = []
 
     for index, match in matchups_week.iterrows():
         home_team = match["Opp Team"]
@@ -125,7 +125,7 @@ def matchups_layout(matchups, week):
         away_pts = match["Wk Pts"]
         away_pro_pts = match["Wk Pro. Pts"]
         away_rk = match["Prev. Wk Rk"]
-        matchup_layout.append(
+        match_layout.append(
             matchup_card(
                 home_team,
                 home_manager,
@@ -140,7 +140,7 @@ def matchups_layout(matchups, week):
             )
         )
 
-    return matchup_layout
+    return match_layout
 
 matchups, max_week, dropdown_options = reg_season_matchups()
 
@@ -187,12 +187,14 @@ def matcups_update(value, n):
     trig_id = ctx.triggered_id
     if trig_id == 'matchups-dropdown':
         if value:
-            week = int(value[5:])
-        matchup_layout = matchups_layout(matchups, week)
-        return matchup_layout
+            chosen_week = int(value[5:])
+        else:
+            chosen_week = max_week
+        dd_matchup_layout = matchups_layout(matchups, chosen_week)
+        return dd_matchup_layout
     elif trig_id == 'matchups-interval-component':
-        match_ups, max_week, dropdown_options = reg_season_matchups()
-        m_layout = matchups_layout(match_ups, max_week)
-        return m_layout
+        t_match_ups, t_max_week, dropdown_options = reg_season_matchups()
+        time_matchup_layout = matchups_layout(t_match_ups, t_max_week)
+        return time_matchup_layout
     else:
         return dash.no_update
