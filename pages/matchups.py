@@ -314,7 +314,7 @@ matchup_page = html.Div(
         ),
         dcc.Interval(
             id="matchups-interval-component",
-            interval=900 * 1000,  # in milliseconds
+            interval=300 * 1000,  # in milliseconds
             n_intervals=0,
         ),
     ],

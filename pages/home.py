@@ -93,7 +93,7 @@ layout = html.Div(
         ),
         dcc.Interval(
             id="home-interval-component",
-            interval=900 * 1000,  # in milliseconds
+            interval=3600 * 1000,  # in milliseconds
             n_intervals=0,
         ),
     ]
