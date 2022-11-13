@@ -23,14 +23,14 @@ server.wsgi_app = WhiteNoise(server.wsgi_app, root="static/")
 # it consists of a title, and a toggle, the latter is hidden on large screens
 sidebar_header = dbc.Row(
     [
-        dbc.Col(
+        dbc.Col([
             html.Img(
                 src="https://www.jmu.edu/identity/_files/jmu-logo-rgb-vert-purple.png",
                 alt="JMU-Logo",
-                style={"width": "100%"},
-                className="display-4",
-            )
-        ),
+                style={"width": "100%", "padding": "0"},
+            ),
+            html.H4("2022", style={"text-align": "right"})
+    ], style={"max-height": "12.5em"}),
         dbc.Col(
             [
                 html.Button(

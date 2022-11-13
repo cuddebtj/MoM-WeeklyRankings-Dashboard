@@ -4,9 +4,6 @@ import dash_bootstrap_components as dbc
 
 from packages.db_connect import get_reg_season, get_playoffs
 
-playoffs = get_playoffs()
-playoff_week = playoffs["Week"].max()
-
 layout = html.Div(
     [
         dbc.Container(
@@ -15,14 +12,30 @@ layout = html.Div(
                     [
                         dbc.Col(
                             html.H1(
-                                "Welcome to the Men of Madison Fantasy Football League!",
+                                """
+                                Men of Madison Fantasy Football League (MoM FFBL)
+                                """,
                                 className="text-center",
                                 style={"color": "#B599CE"},
                             ),
-                            className="mb-5",
+                            className="mb-1",
                         )
                     ],
                     align="justify",
+                ),
+                dbc.Row(
+                    [
+                        dbc.Col(
+                            html.H6(
+                                """
+                                Welcome! This is a 10-Team league formed in 2012 by the gentlemen of Phi Epsilon Kappa - Delta Gamma Chapter from James Madison University. 
+                                """,
+                                className="text-left",
+                            ),
+                            className="mb-3",
+                        )
+                    ],
+                    align="left",
                 ),
                 dbc.Row(
                     [
@@ -32,9 +45,10 @@ layout = html.Div(
                                     dbc.CardHeader(
                                         children=[
                                             html.H3(
-                                                children=f"Week {playoff_week} Rankings",
+                                                children="",
                                                 className="text-center",
                                                 style={"color": "#CBB677"},
+                                                id="rankings-header",
                                             )
                                         ]
                                     ),
@@ -43,12 +57,11 @@ layout = html.Div(
                                 color="dark",
                                 outline=True,
                             ),
-                            width="auto",
                             class_name="mb-4",
                         ),
                     ],
                     justify="center",
-                    className="mb-5",
+                    className="mb-3",
                 ),
                 dbc.Row(
                     [
@@ -58,28 +71,27 @@ layout = html.Div(
                                     dbc.CardHeader(
                                         children=[
                                             html.H3(
-                                                children=f"Week {playoff_week} Playoff Picture",
+                                                children="Season Finish",
                                                 className="text-center",
                                                 style={"color": "#CBB677"},
+                                                id="season-finish-header"
                                             )
                                         ]
                                     ),
-                                    html.Div(id="playoff-table"),
+                                    html.Div(id="season-finish-table"),
                                 ],
                                 color="dark",
                                 outline=True,
                             ),
-                            width="auto",
                             class_name="mb-4",
                         ),
                     ],
                     justify="center",
-                    className="mb-5",
                 ),
             ]
         ),
         dcc.Interval(
-            id="interval-component",
+            id="home-interval-component",
             interval=900 * 1000,  # in milliseconds
             n_intervals=0,
         ),
@@ -88,11 +100,15 @@ layout = html.Div(
 
 
 @dash.callback(
-    Output("reg-season-table", "children"), Input("interval-component", "n_intervals")
+    Output("reg-season-table", "children"), 
+    Output("rankings-header", "children"), 
+    Output("season-finish-table", "children"), 
+    Input("home-interval-component", "n_intervals")
 )
 def reg_season_table_update(n):
     reg_season = get_reg_season()
-    reg_season = reg_season[reg_season["Week"] == reg_season["Week"].max()]
+    max_reg_week = reg_season["Week"].max()
+    reg_season = reg_season[reg_season["Week"] == max_reg_week]
     reg_season = reg_season[reg_season.columns[1:]]
     reg_season_table = dbc.Table.from_dataframe(
         reg_season,
@@ -102,24 +118,21 @@ def reg_season_table_update(n):
         responsive=True,
         className="table-sm rounded m-2",
     )
+    if max_reg_week >= 15:
+        playoffs = get_playoffs()
+        max_playoff_week = playoffs["Week"].max()
+        playoffs = playoffs[playoffs["Week"] == max_playoff_week]
+        playoffs = playoffs[playoffs.columns[2:6]]
+        playoff_table = dbc.Table.from_dataframe(
+            playoffs,
+            striped=True,
+            bordered=False,
+            hover=True,
+            responsive=True,
+            className="table-sm rounded",
+        )
 
-    return reg_season_table
+    else:
+        playoff_table = html.H6("Regular season still active, finish has not been determined.", className="m-3", style={"color": "#B599CE"},)
 
-
-@dash.callback(
-    Output("playoff-table", "children"), Input("interval-component", "n_intervals")
-)
-def playoff_table_update(n):
-    playoffs = get_playoffs()
-    playoffs = playoffs[playoffs["Week"] == playoffs["Week"].max()]
-    playoffs = playoffs[playoffs.columns[1:]]
-    playoff_table = dbc.Table.from_dataframe(
-        playoffs,
-        striped=True,
-        bordered=True,
-        hover=True,
-        responsive=True,
-        className="table-sm rounded m-2",
-    )
-
-    return playoff_table
+    return reg_season_table, f"Week {max_reg_week} Rankings", playoff_table

@@ -145,13 +145,13 @@ def matchups_layout(matchups, week):
 matchups, max_week, dropdown_options = reg_season_matchups()
 
 matchup_page = html.Div(
-    [
+    [html.Div(
+                html.H1("Matchups", className="weekText", style={"color": "#B599CE"}),
+                className="weekContainer mb-2",
+            ),
     html.Div(
         [
-            html.Div(
-                html.H1("Matchups", className="weekText", style={"color": "#B599CE"}),
-                className="weekContainer",
-            ),
+            
             html.Div(
                 dcc.Dropdown(
                     dropdown_options,

@@ -11,7 +11,7 @@ layout = html.Div(
                         dbc.Col(
                             html.H1(
                                 "Bylaws",
-                                className="text-left",
+                                className="text-center",
                                 style={"color": "#B599CE"},
                             ),
                         )
@@ -21,10 +21,9 @@ layout = html.Div(
                 dbc.Row(
                     [
                         dbc.Col(
-                            html.H3(
+                            html.H6(
                                 "Established 2012 - Current Year 2022",
-                                className="text-left",
-                                style={"color": "#B599CE"},
+                                className="text-center",
                             ),
                             className="mb-5",
                         )

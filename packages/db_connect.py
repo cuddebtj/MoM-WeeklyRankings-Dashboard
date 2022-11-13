@@ -31,20 +31,19 @@ ORDER BY "Week",
 def get_reg_season():
     weekly_rankings_query = """
 SELECT "Week", 
-"Manager", 
-"Team",
-"Cur. Wk Rk", 
 "Prev. Wk Rk", 
+"Manager", 
+"Team", 
+"Cur. Wk Rk", 
 "2pt Ttl", 
-"2pt Ttl Rk", 
 "Ttl Pts Win", 
-"Win Ttl",
+"Win Ttl", 
 "Loss Ttl", 
 "Ttl Pts", 
 "Ttl Pts Rk" 
-FROM prod.reg_season_results
+FROM prod.reg_season_results 
 ORDER BY "Week", 
-"Cur. Wk Rk"
+"Prev. Wk Rk"
 """
     weekly_rankings_df = DatabaseCursor().copy_from_psql(weekly_rankings_query)
     return weekly_rankings_df

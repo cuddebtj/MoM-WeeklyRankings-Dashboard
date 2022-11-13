@@ -4,7 +4,7 @@
 }
 
 .matchups {
-    margin: 2em 0 6em;
+    margin: 1em 0 2em;
 }
 .weekContainer {
     display: flex;
@@ -31,25 +31,6 @@
 .weekText {
     flex-grow: 1;
     text-align: center;
-    font-size: 2em;
-}
-
-@media (max-width: 800px) {
-    .weekText {
-        font-size: 1.6em;
-    }
-}
-
-@media (max-width: 400px) {
-    .weekText {
-        font-size: 1.3em;
-    }
-}
-
-@media (max-width: 350px) {
-    .weekText {
-        font-size: 1.2em;
-    }
 }
 
 .matchup {
