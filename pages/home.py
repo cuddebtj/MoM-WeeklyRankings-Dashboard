@@ -75,7 +75,7 @@ layout = html.Div(
                                                 children="Season Finish",
                                                 className="text-center",
                                                 style={"color": "#CBB677"},
-                                                id="season-finish-header"
+                                                id="season-finish-header",
                                             )
                                         ]
                                     ),
@@ -101,10 +101,10 @@ layout = html.Div(
 
 
 @dash.callback(
-    Output("reg-season-table", "children"), 
-    Output("rankings-header", "children"), 
-    Output("season-finish-table", "children"), 
-    Input("home-interval-component", "n_intervals")
+    Output("reg-season-table", "children"),
+    Output("rankings-header", "children"),
+    Output("season-finish-table", "children"),
+    Input("home-interval-component", "n_intervals"),
 )
 def reg_season_table_update(n):
     reg_season = get_reg_season()
@@ -119,7 +119,7 @@ def reg_season_table_update(n):
         responsive=True,
         className="table-sm rounded m-2",
     )
-    if max_reg_week >= 15:
+    if max_reg_week > 15:
         playoffs = get_playoffs()
         max_playoff_week = playoffs["Week"].max()
         playoffs = playoffs[playoffs["Week"] == max_playoff_week]
@@ -134,6 +134,10 @@ def reg_season_table_update(n):
         )
 
     else:
-        playoff_table = html.H6("Regular season still active, finish has not been determined.", className="m-3", style={"color": "#B599CE"},)
+        playoff_table = html.H6(
+            "Regular season still active, finish has not been determined.",
+            className="m-3",
+            style={"color": "#B599CE"},
+        )
 
     return reg_season_table, f"Week {max_reg_week} Rankings", playoff_table

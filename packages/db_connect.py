@@ -11,18 +11,20 @@ def get_playoffs():
 SELECT "Week", 
 "Bracket", 
 "Manager", 
+team_key,
 "Team",
 "Finish", 
 "Playoff Seed", 
-"Wk W/L", 
 "Wk Pts", 
 "Wk Pro. Pts", 
+opp_team_key, 
 "Opp Manager", 
+"Opp Team", 
 "Opp Wk Pts", 
 "Opp Wk Pro. Pts" 
 FROM prod.playoff_board
 ORDER BY "Week", 
-"Finish"
+"Playoff Seed"
 """
     playoffs_df = DatabaseCursor().copy_from_psql(playoffs_query)
     return playoffs_df
