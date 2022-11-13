@@ -27,10 +27,10 @@ sidebar_header = dbc.Row(
             html.Img(
                 src="https://www.jmu.edu/identity/_files/jmu-logo-rgb-vert-purple.png",
                 alt="JMU-Logo",
-                style={"width": "100%", "padding": "0"},
+                style={"max-height": "12.5em"},
             ),
             html.H4("2022", style={"text-align": "right"})
-    ], style={"max-height": "12.5em"}),
+    ], style={}),
         dbc.Col(
             [
                 html.Button(
