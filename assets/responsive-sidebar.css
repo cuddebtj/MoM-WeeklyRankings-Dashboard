@@ -2,6 +2,7 @@
   text-align: center;
   padding: 0.75rem 0.75rem;
   background-color: #F4EFE1;
+  overflow-y:scroll;
 }
 
 #sidebar h2 {
@@ -19,7 +20,7 @@
 }
 
 #collapse *:first-child {
-  margin-top: 1rem;
+  margin-top: 0.25rem;
 }
 
 /* add the three horizontal bars icon for the toggle */
