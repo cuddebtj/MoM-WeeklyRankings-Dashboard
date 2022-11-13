@@ -2,7 +2,7 @@ import dash
 from dash import html, Input, Output, dcc
 import dash_bootstrap_components as dbc
 
-from packages.db_connect import get_reg_season, get_playoffs
+from packages.db_connect import prod_playoff_board_tbl, prod_reg_season_results_tbl
 
 layout = html.Div(
     [
@@ -93,21 +93,35 @@ layout = html.Div(
         ),
         dcc.Interval(
             id="home-interval-component",
-            interval=3600 * 1000,  # in milliseconds
+            interval=7200 * 1000,  # in milliseconds
             n_intervals=0,
         ),
     ]
 )
 
-
 @dash.callback(
-    Output("reg-season-table", "children"),
     Output("rankings-header", "children"),
+    Output("reg-season-table", "children"),
     Output("season-finish-table", "children"),
     Input("home-interval-component", "n_intervals"),
 )
-def reg_season_table_update(n):
-    reg_season = get_reg_season()
+def home_updates(n):
+    reg_season = prod_reg_season_results_tbl()
+    reg_season = reg_season[
+        [
+            "Week",
+            "Prev. Wk Rk",
+            "Manager",
+            "Team",
+            "Cur. Wk Rk",
+            "2pt Ttl",
+            "Ttl Pts Win",
+            "Win Ttl", 
+            "Loss Ttl",
+            "Ttl Pts",
+            "Ttl Pts Rk"
+        ]
+    ].sort_values(["Week", "Prev. Wk Rk"])
     max_reg_week = reg_season["Week"].max()
     reg_season = reg_season[reg_season["Week"] == max_reg_week]
     reg_season = reg_season[reg_season.columns[1:]]
@@ -120,7 +134,25 @@ def reg_season_table_update(n):
         className="table-sm rounded m-2",
     )
     if max_reg_week > 15:
-        playoffs = get_playoffs()
+        playoffs = prod_playoff_board_tbl()
+        playoffs = playoffs[
+            [
+                "Week",
+                "Bracket",
+                "Manager",
+                "team_key",
+                "Team",
+                "Finish",
+                "Playoff Seed",
+                "Wk Pts",
+                "Wk Pro. Pts",
+                "opp_team_key",
+                "Opp Manger",
+                "Opp Team",
+                "Opp Wk Pts",
+                "Opp Wk Pro. Pts"
+            ]
+        ].sort_values(["Week", "Playoff Seed"])
         max_playoff_week = playoffs["Week"].max()
         playoffs = playoffs[playoffs["Week"] == max_playoff_week]
         playoffs = playoffs[playoffs.columns[2:6]]
@@ -140,4 +172,4 @@ def reg_season_table_update(n):
             style={"color": "#B599CE"},
         )
 
-    return reg_season_table, f"Week {max_reg_week} Rankings", playoff_table
+    return f"Week {max_reg_week} Rankings", reg_season_table, playoff_table

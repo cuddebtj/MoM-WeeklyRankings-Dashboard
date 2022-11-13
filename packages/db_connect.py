@@ -5,74 +5,11 @@ from io import StringIO
 from pathlib import Path
 import os
 
+def prod_reg_season_results_tbl():
+    return DatabaseCursor().copy_from_psql("""SELECT * FROM prod.reg_season_results""")
 
-def get_playoffs():
-    playoffs_query = """
-SELECT "Week", 
-"Bracket", 
-"Manager", 
-team_key,
-"Team",
-"Finish", 
-"Playoff Seed", 
-"Wk Pts", 
-"Wk Pro. Pts", 
-opp_team_key, 
-"Opp Manager", 
-"Opp Team", 
-"Opp Wk Pts", 
-"Opp Wk Pro. Pts" 
-FROM prod.playoff_board
-ORDER BY "Week", 
-"Playoff Seed"
-"""
-    playoffs_df = DatabaseCursor().copy_from_psql(playoffs_query)
-    return playoffs_df
-
-
-def get_reg_season():
-    weekly_rankings_query = """
-SELECT "Week", 
-"Prev. Wk Rk", 
-"Manager", 
-"Team", 
-"Cur. Wk Rk", 
-"2pt Ttl", 
-"Ttl Pts Win", 
-"Win Ttl", 
-"Loss Ttl", 
-"Ttl Pts", 
-"Ttl Pts Rk" 
-FROM prod.reg_season_results 
-ORDER BY "Week", 
-"Prev. Wk Rk"
-"""
-    weekly_rankings_df = DatabaseCursor().copy_from_psql(weekly_rankings_query)
-    return weekly_rankings_df
-
-
-def get_matchups():
-    matchups_query = """
-SELECT "Week",
-team_key,
-"Prev. Wk Rk",
-"Manager",
-"Team",
-"Wk Pts", 
-"Wk Pro. Pts", 
-opp_team_key,
-"Opp Manager", 
-"Opp Team",
-"Opp Wk Pts", 
-"Opp Wk Pro. Pts"
-FROM prod.reg_season_results
-ORDER BY "Week",
-"Prev. Wk Rk"
-"""
-    matchups_df = DatabaseCursor().copy_from_psql(matchups_query)
-    return matchups_df
-
-
+def prod_playoff_board_tbl():
+    return DatabaseCursor().copy_from_psql("""SELECT * FROM prod.playoff_board""")
 class DatabaseCursor(object):
     def __init__(self):
         """

@@ -3,11 +3,26 @@ import pandas as pd
 from dash import html, Input, Output, dcc, ctx
 import dash_bootstrap_components as dbc
 
-from packages.db_connect import get_matchups, get_playoffs
-
+from packages.db_connect import prod_playoff_board_tbl, prod_reg_season_results_tbl
 
 def reg_season_matchups():
-    reg_season = get_matchups()
+    reg_season = prod_reg_season_results_tbl()
+    reg_season = reg_season[
+        [
+            "Week",
+            "team_key",
+            "Prev. Wk Rk", 
+            "Manager", 
+            "Team", 
+            "Wk Pts", 
+            "Wk Pro. Pts",
+            "opp_team_key", 
+            "Opp Manager", 
+            "Opp Team", 
+            "Opp Wk Pts", 
+            "Opp Wk Pro. Pts"
+        ]
+    ].sort_values(["Week", "Prev. Wk Rk"])
     m_week = reg_season["Week"].max()
     matches_merged = reg_season.merge(
         reg_season,
@@ -49,7 +64,25 @@ def reg_season_matchups():
     # toilet_matchups = None
 
     if m_week > 15:
-        playoffs = get_playoffs()
+        playoffs = prod_playoff_board_tbl()
+        playoffs = playoffs[
+            [
+                "Week", 
+                "Bracket", 
+                "Manager", 
+                "team_key", 
+                "Team", 
+                "Finish", 
+                "Playoff Seed", 
+                "Wk Pts", 
+                "Wk Pro. Pts", 
+                "opp_team_key", 
+                "Opp Manager", 
+                "Opp Team",  
+                "Opp Wk Pts", 
+                "Opp Wk Pro. Pts", 
+            ]
+        ].sort_values(["Week", "Playoff Seed"])
         m_week = playoffs["Week"].max()
         playoffs_merged = playoffs.merge(
             playoffs,
@@ -233,7 +266,7 @@ def matchups_layout(matchups, week):
             "Pete": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/325/crying-face_1f622.png",
             "Chris": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/325/x-ray_1fa7b.png",
             "Tim": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/72/apple/325/crown_1f451.png",
-            "Pat": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/325/pill_1f48a.png",
+            "Pat": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/350/cancer_264b.png",
             "Greg": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/325/new-moon-face_1f31a.png",
             "Wes": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/325/bar-chart_1f4ca.png",
             "Carter": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/72/apple/325/flying-saucer_1f6f8.png",
@@ -274,15 +307,7 @@ def matchups_layout(matchups, week):
 
     return match_layout
 
-
-(
-    matchups,
-    max_week,
-    dropdown_options,
-    # po_matchups,
-    # conso_matchups,
-    # toilet_matchups,
-) = reg_season_matchups()
+matchups, max_week, dropdown_options = reg_season_matchups()
 
 matchup_page = html.Div(
     [
@@ -329,23 +354,20 @@ matchup_page = html.Div(
 )
 def matcups_update(value, n):
     trig_id = ctx.triggered_id
+    matchups, max_week, dd_options = reg_season_matchups()
+
     if trig_id == "matchups-dropdown":
+        
         if value:
             chosen_week = value
         else:
             chosen_week = max_week
         dd_matchup_layout = matchups_layout(matchups, chosen_week)
         return dd_matchup_layout
+
     elif trig_id == "matchups-interval-component":
-        (
-            t_mups,
-            t_max_week,
-            dropdown_options,
-            # t_po_mups,
-            # t_c_mups,
-            # t_t_mups,
-        ) = reg_season_matchups()
-        time_matchup_layout = matchups_layout(t_mups, t_max_week)
+        time_matchup_layout = matchups_layout(matchups, max_week)
         return time_matchup_layout
+
     else:
         return dash.no_update
