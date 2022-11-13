@@ -19,9 +19,10 @@ layout = html.Div(
                                 style={"color": "#B599CE"},
                             ),
                             className="mb-1",
+                            style={"max-width": "90%"},
                         )
                     ],
-                    align="justify",
+                    className="justify-content-center",
                 ),
                 dbc.Row(
                     [
