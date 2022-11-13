@@ -107,7 +107,7 @@ def matchup_card(
                 className="opponent away",
             ),
         ],
-        className="header",
+        className="header mb-1",
     )
 
 def matchups_layout(matchups, week):
