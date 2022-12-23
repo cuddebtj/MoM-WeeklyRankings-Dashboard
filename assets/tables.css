@@ -25,32 +25,71 @@ thead th {
     color: #B599CE !important;
 }
 
-th:nth-child(1) {
+#reg_season_table th:nth-child(1) {
     min-width: 4em !important;
 }
 
-th:nth-child(2) {
+#reg_season_table th:nth-child(2) {
     min-width: 5em !important;
 }
-td:nth-child(2) {
+
+#reg_season_table td:nth-child(2) {
     text-align: left;
 }
 
-th:nth-child(3) {
-    min-width: 10em !important;
+#reg_season_table th:nth-child(3) {
+    min-width: 8em !important;
+    max-width: 10em !important;
 }
-td:nth-child(3) {
+
+#reg_season_table td:nth-child(3) {
     text-align: left;
 }
 
-th:nth-child(4) {
+#reg_season_table th:nth-child(4) {
     min-width: 4em !important;
 }  
 
-th:nth-child(6) {
+#reg_season_table th:nth-child(6) {
     min-width: 4em !important;
 }  
 
-th:nth-child(10) {
+#reg_season_table th:nth-child(10) {
     min-width: 4em !important;
 }
+
+
+
+#playoff_table_semis th:nth-child(1) {
+    min-width: 4em !important;
+}
+
+#playoff_table_semis th:nth-child(2) {
+    min-width: 5em !important;
+}
+
+#playoff_table_semis th:nth-child(3) {
+    min-width: 5em !important;
+}
+
+#playoff_table_semis th:nth-child(4) {
+    min-width: 5em !important;
+}  
+
+
+#playoff_table_finish th:nth-child(1) {
+    min-width: 4em !important;
+}
+
+#playoff_table_finish th:nth-child(2) {
+    min-width: 5em !important;
+}
+
+#playoff_table_finish th:nth-child(3) {
+    min-width: 8em !important;
+    max-width: 10em !important;
+}
+
+#playoff_table_finish th:nth-child(4) {
+    min-width: 4em !important;
+} 

@@ -53,7 +53,7 @@ layout = html.Div(
                                             )
                                         ]
                                     ),
-                                    html.Div(id="reg-season-table"),
+                                    html.Div(id="reg-season-table", className="justify-content-center"),
                                 ],
                                 color="dark",
                                 outline=True,
@@ -79,7 +79,7 @@ layout = html.Div(
                                             )
                                         ]
                                     ),
-                                    html.Div(id="season-finish-table"),
+                                    html.Div(id="season-finish-table", className="justify-content-center"),
                                 ],
                                 color="dark",
                                 outline=True,
@@ -102,6 +102,7 @@ layout = html.Div(
 @dash.callback(
     Output("rankings-header", "children"),
     Output("reg-season-table", "children"),
+    Output("season-finish-header", "children"),
     Output("season-finish-table", "children"),
     Input("home-interval-component", "n_intervals"),
 )
@@ -121,8 +122,16 @@ def home_updates(n):
             "Ttl Pts",
             "Ttl Pts Rk"
         ]
-    ].sort_values(["Week", "Prev. Wk Rk"])
+    ]
     max_reg_week = reg_season["Week"].max()
+
+    if max_reg_week == 15:
+        reg_season.sort_values(["Week", "Cur. Wk Rk"], inplace=True)
+        reg_season_table_title = f"End of {max_reg_week} Rankings"
+    else:        
+        reg_season.sort_values(["Week", "Prev. Wk Rk"], inplace=True)
+        reg_season_table_title = f"Week {max_reg_week} Rankings"
+
     reg_season = reg_season[reg_season["Week"] == max_reg_week]
     reg_season = reg_season[reg_season.columns[1:]]
     reg_season_table = dbc.Table.from_dataframe(
@@ -131,39 +140,55 @@ def home_updates(n):
         bordered=True,
         hover=True,
         responsive=True,
-        className="table-sm rounded m-2",
+        className="reg-season-table table-sm rounded m-2",
+        id="reg_season_table"
     )
-    if max_reg_week > 15:
+
+    playoffs_table_title = "Season Finish"
+
+    if max_reg_week >= 15:
         playoffs = prod_playoff_board_tbl()
-        playoffs = playoffs[
-            [
-                "Week",
-                "Bracket",
-                "Manager",
-                "team_key",
-                "Team",
-                "Finish",
-                "Playoff Seed",
-                "Wk Pts",
-                "Wk Pro. Pts",
-                "opp_team_key",
-                "Opp Manger",
-                "Opp Team",
-                "Opp Wk Pts",
-                "Opp Wk Pro. Pts"
-            ]
-        ].sort_values(["Week", "Playoff Seed"])
         max_playoff_week = playoffs["Week"].max()
         playoffs = playoffs[playoffs["Week"] == max_playoff_week]
-        playoffs = playoffs[playoffs.columns[2:6]]
-        playoff_table = dbc.Table.from_dataframe(
-            playoffs,
-            striped=True,
-            bordered=False,
-            hover=True,
-            responsive=True,
-            className="table-sm rounded",
-        )
+        playoffs["Bracket"] = playoffs["Bracket"].replace(["Reg Season Finish"], ["Bye"])
+
+        if max_playoff_week == 17:
+            playoffs = playoffs[
+                [
+                    "Finish",
+                    "Manager",
+                    "Team",
+                    "Playoff Seed",
+                ]
+            ].sort_values(["Finish"])
+            playoff_table = dbc.Table.from_dataframe(
+                playoffs,
+                striped=True,
+                bordered=False,
+                hover=True,
+                responsive=True,
+                className="season-finish-table table-sm rounded",
+                id="playoff_table_finish"
+            )
+        else:        
+            playoffs = playoffs[
+                [
+                    "Playoff Seed",
+                    "Manager",
+                    "Bracket",
+                    "Opp Manager",
+                ]
+            ].sort_values(["Playoff Seed"])
+            playoffs_table_title = "Semi Finals!"
+            playoff_table = dbc.Table.from_dataframe(
+                playoffs,
+                striped=True,
+                bordered=False,
+                hover=True,
+                responsive=True,
+                className="season-finish-table table-sm rounded",
+                id="playoff_table_semis"
+            )
 
     else:
         playoff_table = html.H6(
@@ -172,4 +197,4 @@ def home_updates(n):
             style={"color": "#B599CE"},
         )
 
-    return f"Week {max_reg_week} Rankings", reg_season_table, playoff_table
+    return reg_season_table_title, reg_season_table, playoffs_table_title, playoff_table

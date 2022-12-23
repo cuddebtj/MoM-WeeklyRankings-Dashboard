@@ -280,6 +280,25 @@ layout = html.Div(
                                                             ),
                                                             html.P(
                                                                 """
+                                                                There will be 1 match-up for 5th place.
+                                                                """,
+                                                                style={
+                                                                    "padding-top": "10px",
+                                                                    "padding-left": "10px",
+                                                                    "padding-right": "10px",
+                                                                },
+                                                            ),
+                                                            html.Ul(
+                                                                [
+                                                                    html.Li(
+                                                                        "The 5th seed and 6th seed will get a bye week 16. "
+                                                                    ),
+                                                                    html.Li(
+                                                                        "They will the play for 5th place week 17. "
+                                                                    ),
+                                                                ]
+                                                            ),html.P(
+                                                                """
                                                                 There will be a “Toilet Bowl”.
                                                                 """,
                                                                 style={
@@ -291,13 +310,13 @@ layout = html.Div(
                                                             html.Ul(
                                                                 [
                                                                     html.Li(
-                                                                        "The Toilet Bowl will be formatted with week 16 having no head-to-head match-ups. "
+                                                                        "The Toilet Bowl will be formatted similar to the playoffs. "
                                                                     ),
                                                                     html.Li(
-                                                                        "The top two scores from week 16 will play in week 17 for the 5th spot, the bottom two teams will play for the 9th spot, and the middle teams will play for 7th. "
+                                                                        "The teams that are ranked #7 and #8 will play #9 and #10, with the higher seed playing the lower. "
                                                                     ),
                                                                     html.Li(
-                                                                        "The loser of the 9th place game will be considered the loser of the toilet bowl."
+                                                                        "The loser of the 9th place match-up will be considered the loser of the toilet bowl."
                                                                     ),
                                                                 ]
                                                             ),

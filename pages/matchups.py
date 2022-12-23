@@ -59,12 +59,10 @@ def reg_season_matchups():
     matchups.reset_index(drop=True, inplace=True)
     max_week = f"Week {m_week}"
     dropdown_options = [wk for wk in matchups["Week"].unique()]
-    po_matchups = None
-    # conso_matchups = None
-    # toilet_matchups = None
 
-    if m_week > 15:
+    if m_week == 15:
         playoffs = prod_playoff_board_tbl()
+        playoffs["Bracket"] = playoffs["Bracket"].replace(["Reg Season Finish"], ["Bye"])
         playoffs = playoffs[
             [
                 "Week", 
@@ -90,7 +88,7 @@ def reg_season_matchups():
             right_on=["opp_team_key", "Week"],
             suffixes=("", "_opp"),
         )
-        playoffs_merged['Week'] = "Round " + playoffs_merged['Week'].astype(str)
+        playoffs_merged['Week'] = "PO Week " + playoffs_merged['Week'].astype(str)
         po_matchups = playoffs_merged[
             [
                 "Week",
@@ -110,61 +108,9 @@ def reg_season_matchups():
             ]
         ][
             (playoffs_merged["Playoff Seed"] < playoffs_merged["Playoff Seed_opp"])
-            # & (playoffs_merged["Bracket"].str.contains("Play"))
         ]
 
-        # conso_matchups = playoffs_merged[
-        #     [
-        #         "Week",
-        #         "team_key",
-        #         "Playoff Seed",
-        #         "Manager",
-        #         "Team",
-        #         "Wk Pts",
-        #         "Wk Pro. Pts",
-        #         "opp_team_key",
-        #         "Playoff Seed_opp",
-        #         "Opp Manager",
-        #         "Opp Team",
-        #         "Opp Wk Pts",
-        #         "Opp Wk Pro. Pts",
-        #         "Bracket",
-        #     ]
-        # ][
-        #     (playoffs_merged["Playoff Seed"] < playoffs_merged["Playoff Seed_opp"])
-        #     & (playoffs_merged["Bracket"].str.contains("Conso"))
-        # ]
-
-        # toilet_matchups = playoffs_merged[
-        #     [
-        #         "Week",
-        #         "team_key",
-        #         "Playoff Seed",
-        #         "Manager",
-        #         "Team",
-        #         "Wk Pts",
-        #         "Wk Pro. Pts",
-        #         "opp_team_key",
-        #         "Playoff Seed_opp",
-        #         "Opp Manager",
-        #         "Opp Team",
-        #         "Opp Wk Pts",
-        #         "Opp Wk Pro. Pts",
-        #         "Bracket",
-        #     ]
-        # ][
-        #     (playoffs_merged["Playoff Seed"] < playoffs_merged["Playoff Seed_opp"])
-        #     & (playoffs_merged["Bracket"].str.contains("Toilet"))
-        # ]
-
-        matchups = pd.concat(
-            [
-                matchups, 
-                po_matchups, 
-                # conso_matchups, 
-                # toilet_matchups
-            ]
-        )
+        matchups = pd.concat([matchups, po_matchups])
 
         matchups["Prev. Wk Rk"] = matchups["Prev. Wk Rk"].fillna(matchups["Playoff Seed"]).astype(int)
         matchups["Prev. Wk Rk_opp"] = matchups["Prev. Wk Rk_opp"].fillna(matchups["Playoff Seed_opp"]).astype(int)
@@ -172,15 +118,12 @@ def reg_season_matchups():
         for w in playoffs_merged["Week"].unique():
             dropdown_options.append(w)
 
-        max_week = f"Round {m_week}"
+        max_week = f"PO Week {m_week}"
 
     return (
         matchups,
         max_week,
         dropdown_options,
-        # po_matchups,
-        # conso_matchups,
-        # toilet_matchups,
     )
 
 
@@ -191,12 +134,14 @@ def matchup_card(
     home_pro_pts,
     home_rk,
     home_src,
+    home_brk,
     away_team,
     away_manager,
     away_pts,
     away_pro_pts,
     away_rk,
     away_src,
+    away_brk,
 ):
     away_glow = ""
     home_glow = ""
@@ -217,7 +162,7 @@ def matchup_card(
                         [
                             away_team,
                             html.Div(
-                                f"{away_manager} ({away_rk})",
+                                f"{away_manager} ({away_rk}) - {away_brk}" if away_brk else f"{away_manager} ({away_rk})",
                                 className="totalProjection",
                             ),
                         ],
@@ -240,7 +185,7 @@ def matchup_card(
                         [
                             home_team,
                             html.Div(
-                                f"{home_manager} ({home_rk})",
+                                f"{home_manager} ({home_rk}) - {home_brk}" if home_brk else f"{home_manager} ({home_rk})",
                                 className="totalProjection",
                             ),
                         ],
@@ -282,6 +227,7 @@ def matchups_layout(matchups, week):
         home_pro_pts = match["Wk Pro. Pts"]
         home_rk = match["Prev. Wk Rk"]
         home_src = srcs[match["Manager"]]
+        bracket = match["Bracket"]
         away_team = match["Opp Team"]
         away_manager = match["Opp Manager"]
         away_pts = match["Opp Wk Pts"]
@@ -296,12 +242,14 @@ def matchups_layout(matchups, week):
                 home_pro_pts,
                 home_rk,
                 home_src,
+                bracket if bracket else None,
                 away_team,
                 away_manager,
                 away_pts,
                 away_pro_pts,
                 away_rk,
                 away_src,
+                bracket if bracket else None,
             )
         )
 
@@ -339,7 +287,7 @@ matchup_page = html.Div(
         ),
         dcc.Interval(
             id="matchups-interval-component",
-            interval=150 * 1000,  # in milliseconds
+            interval=150 * 1000,  # 150 seconds
             n_intervals=0,
         ),
     ],
