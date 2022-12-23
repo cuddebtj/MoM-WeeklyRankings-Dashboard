@@ -5,11 +5,15 @@ from io import StringIO
 from pathlib import Path
 import os
 
+
 def prod_reg_season_results_tbl():
     return DatabaseCursor().copy_from_psql("""SELECT * FROM prod.reg_season_results""")
 
+
 def prod_playoff_board_tbl():
     return DatabaseCursor().copy_from_psql("""SELECT * FROM prod.playoff_board""")
+
+
 class DatabaseCursor(object):
     def __init__(self):
         """

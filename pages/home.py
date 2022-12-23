@@ -53,7 +53,10 @@ layout = html.Div(
                                             )
                                         ]
                                     ),
-                                    html.Div(id="reg-season-table", className="justify-content-center"),
+                                    html.Div(
+                                        id="reg-season-table",
+                                        className="justify-content-center",
+                                    ),
                                 ],
                                 color="dark",
                                 outline=True,
@@ -79,7 +82,10 @@ layout = html.Div(
                                             )
                                         ]
                                     ),
-                                    html.Div(id="season-finish-table", className="justify-content-center"),
+                                    html.Div(
+                                        id="season-finish-table",
+                                        className="justify-content-center",
+                                    ),
                                 ],
                                 color="dark",
                                 outline=True,
@@ -99,6 +105,7 @@ layout = html.Div(
     ]
 )
 
+
 @dash.callback(
     Output("rankings-header", "children"),
     Output("reg-season-table", "children"),
@@ -117,10 +124,10 @@ def home_updates(n):
             "Cur. Wk Rk",
             "2pt Ttl",
             "Ttl Pts Win",
-            "Win Ttl", 
+            "Win Ttl",
             "Loss Ttl",
             "Ttl Pts",
-            "Ttl Pts Rk"
+            "Ttl Pts Rk",
         ]
     ]
     max_reg_week = reg_season["Week"].max()
@@ -128,7 +135,7 @@ def home_updates(n):
     if max_reg_week == 15:
         reg_season.sort_values(["Week", "Cur. Wk Rk"], inplace=True)
         reg_season_table_title = f"End of {max_reg_week} Rankings"
-    else:        
+    else:
         reg_season.sort_values(["Week", "Prev. Wk Rk"], inplace=True)
         reg_season_table_title = f"Week {max_reg_week} Rankings"
 
@@ -141,7 +148,7 @@ def home_updates(n):
         hover=True,
         responsive=True,
         className="reg-season-table table-sm rounded m-2",
-        id="reg_season_table"
+        id="reg_season_table",
     )
 
     playoffs_table_title = "Season Finish"
@@ -150,7 +157,9 @@ def home_updates(n):
         playoffs = prod_playoff_board_tbl()
         max_playoff_week = playoffs["Week"].max()
         playoffs = playoffs[playoffs["Week"] == max_playoff_week]
-        playoffs["Bracket"] = playoffs["Bracket"].replace(["Reg Season Finish"], ["Bye"])
+        playoffs["Bracket"] = playoffs["Bracket"].replace(
+            ["Reg Season Finish"], ["Bye"]
+        )
 
         if max_playoff_week == 17:
             playoffs = playoffs[
@@ -168,9 +177,9 @@ def home_updates(n):
                 hover=True,
                 responsive=True,
                 className="season-finish-table table-sm rounded",
-                id="playoff_table_finish"
+                id="playoff_table_finish",
             )
-        else:        
+        else:
             playoffs = playoffs[
                 [
                     "Playoff Seed",
@@ -187,7 +196,7 @@ def home_updates(n):
                 hover=True,
                 responsive=True,
                 className="season-finish-table table-sm rounded",
-                id="playoff_table_semis"
+                id="playoff_table_semis",
             )
 
     else:

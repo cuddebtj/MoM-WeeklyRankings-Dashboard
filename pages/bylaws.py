@@ -297,7 +297,8 @@ layout = html.Div(
                                                                         "They will the play for 5th place week 17. "
                                                                     ),
                                                                 ]
-                                                            ),html.P(
+                                                            ),
+                                                            html.P(
                                                                 """
                                                                 There will be a “Toilet Bowl”.
                                                                 """,
